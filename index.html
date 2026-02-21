@@ -9,11 +9,17 @@
             .container { max-width: 1000px; margin: auto; }
             .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
             .grid { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
-            .list-item { padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; }
+            .list-item { padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; position: relative; }
             .list-item:hover { border-color: var(--primary); }
             .list-item.active { border-color: var(--primary); background: rgba(88, 166, 255, 0.1); }
             .chart-box { height: 450px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
             .bar-fill { background: var(--primary); height: 8px; border-radius: 4px; transition: width 0.6s ease; width: 0; }
+            
+            /* 新增：策略徽章和预测概率样式 */
+            .badge { font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold; margin-left: 8px; vertical-align: middle; }
+            .win-rate { position: absolute; right: 12px; top: 12px; font-size: 18px; font-weight: bold; color: var(--primary); }
+            .win-rate small { font-size: 10px; font-weight: normal; color: #8b949e; display: block; text-align: right; }
+            
             @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
         </style>
     </head>
@@ -21,10 +27,40 @@
         <div class="container">
             <div class="card">
                 <h2 style="color:var(--primary); margin:0;">🚀 AI 策略多路决策矩阵</h2>
-                <div style="font-size:12px; color:#8b949e; margin-bottom:15px;">Node: DELL 3020 | 2026-02-21 17:43:23</div>
+                <div style="font-size:12px; color:#8b949e; margin-bottom:15px;">Node: DELL 3020 | 2026-02-21 17:52:23</div>
                 <div class="grid">
                     <div id="list">
-                        <div class="list-item" onclick="select_stock(0)"><b>SH600026</b><br><small>AI评分: 0.0262</small></div><div class="list-item" onclick="select_stock(1)"><b>SH688223</b><br><small>AI评分: 0.0101</small></div><div class="list-item" onclick="select_stock(2)"><b>SH600176</b><br><small>AI评分: 0.0092</small></div><div class="list-item" onclick="select_stock(3)"><b>SZ000975</b><br><small>AI评分: 0.0042</small></div><div class="list-item" onclick="select_stock(4)"><b>SZ300316</b><br><small>AI评分: 0.0039</small></div>
+                        
+                        <div class="list-item" onclick="select_stock(0)">
+                            <div style="font-size:16px; font-weight:bold;">SH600026 <span class="badge" style="background: #ff4d4d20; color: #ff4d4d; border: 1px solid #ff4d4d">🔥 强势看多</span></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0262</div>
+                            <div class="win-rate">85.0% <small>预测胜率</small></div>
+                        </div>
+                        
+                        <div class="list-item" onclick="select_stock(1)">
+                            <div style="font-size:16px; font-weight:bold;">SH688223 <span class="badge" style="background: #3fb95020; color: #3fb950; border: 1px solid #3fb950">💡 逢低潜伏</span></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0101</div>
+                            <div class="win-rate">63.4% <small>预测胜率</small></div>
+                        </div>
+                        
+                        <div class="list-item" onclick="select_stock(2)">
+                            <div style="font-size:16px; font-weight:bold;">SH600176 <span class="badge" style="background: #3fb95020; color: #3fb950; border: 1px solid #3fb950">💡 逢低潜伏</span></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0092</div>
+                            <div class="win-rate">62.3% <small>预测胜率</small></div>
+                        </div>
+                        
+                        <div class="list-item" onclick="select_stock(3)">
+                            <div style="font-size:16px; font-weight:bold;">SZ000975 <span class="badge" style="background: #3fb95020; color: #3fb950; border: 1px solid #3fb950">💡 逢低潜伏</span></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0042</div>
+                            <div class="win-rate">55.6% <small>预测胜率</small></div>
+                        </div>
+                        
+                        <div class="list-item" onclick="select_stock(4)">
+                            <div style="font-size:16px; font-weight:bold;">SZ300316 <span class="badge" style="background: #3fb95020; color: #3fb950; border: 1px solid #3fb950">💡 逢低潜伏</span></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0039</div>
+                            <div class="win-rate">55.1% <small>预测胜率</small></div>
+                        </div>
+                        
                     </div>
                     <div class="chart-box">
                         <iframe id="rf" width="100%" height="100%" frameborder="0"></iframe>
@@ -37,18 +73,17 @@
             </div>
         </div>
         <script>
-            const sd = [{"code": "SH600026", "tv": "SSE:600026", "score": 0.0262, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5842}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5394}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4204}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3775}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2362}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2331}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2170}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1959}]}, {"code": "SH688223", "tv": "SSE:688223", "score": 0.0101, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5842}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5394}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4204}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3775}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2362}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2331}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2170}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1959}]}, {"code": "SH600176", "tv": "SSE:600176", "score": 0.0092, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 6169}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5696}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4439}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3987}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2494}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2462}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2291}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 2069}]}, {"code": "SZ000975", "tv": "SZSE:000975", "score": 0.0042, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5569}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5142}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4007}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3599}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2251}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2222}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2068}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1868}]}, {"code": "SZ300316", "tv": "SZSE:300316", "score": 0.0039, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5951}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5495}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4282}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3846}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2406}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2375}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2210}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1996}]}];
+            const sd = [{"code": "SH600026", "tv": "SSE:600026", "score": 0.0262, "win_rate": 85.0, "tag": "\ud83d\udd25 \u5f3a\u52bf\u770b\u591a", "color": "#ff4d4d", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5842}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5394}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4204}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3775}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2362}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2331}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2170}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1959}]}, {"code": "SH688223", "tv": "SSE:688223", "score": 0.0101, "win_rate": 63.4, "tag": "\ud83d\udca1 \u9022\u4f4e\u6f5c\u4f0f", "color": "#3fb950", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5842}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5394}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4204}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3775}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2362}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2331}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2170}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1959}]}, {"code": "SH600176", "tv": "SSE:600176", "score": 0.0092, "win_rate": 62.3, "tag": "\ud83d\udca1 \u9022\u4f4e\u6f5c\u4f0f", "color": "#3fb950", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 6169}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5696}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4439}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3987}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2494}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2462}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2291}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 2069}]}, {"code": "SZ000975", "tv": "SZSE:000975", "score": 0.0042, "win_rate": 55.6, "tag": "\ud83d\udca1 \u9022\u4f4e\u6f5c\u4f0f", "color": "#3fb950", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5569}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5142}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4007}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3599}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2251}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2222}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2068}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1868}]}, {"code": "SZ300316", "tv": "SZSE:300316", "score": 0.0039, "win_rate": 55.1, "tag": "\ud83d\udca1 \u9022\u4f4e\u6f5c\u4f0f", "color": "#3fb950", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5951}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5495}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4282}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3846}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2406}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2375}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2210}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1996}]}];
             function select_stock(idx) {
                 const s = sd[idx];
                 document.getElementById('rf').src = "https://s.tradingview.com/widgetembed/?symbol=" + s.tv + "&interval=D&theme=dark&locale=zh_CN";
-                document.getElementById('ft').innerText = "📊 特征贡献归因: " + s.code;
+                document.getElementById('ft').innerText = "📊 特征贡献归因: " + s.code + " (" + s.tag + ")";
                 
                 let html_str = "";
                 for(let i=0; i<s.factors.length; i++) {
                     let f = s.factors[i];
                     html_str += '<div style="margin-bottom:10px;">';
                     html_str += '<div style="font-size:12px; display:flex; justify-content:space-between;"><span>' + f.name + '</span><span>' + f.val + '</span></div>';
-                    // CSS 层增加 overflow:hidden 绝缘防护
                     html_str += '<div style="background:#21262d; height:8px; border-radius:4px; margin-top:4px; overflow:hidden;">';
                     html_str += '<div class="bar-fill" style="width:' + f.pct + '%"></div>';
                     html_str += '</div></div>';
