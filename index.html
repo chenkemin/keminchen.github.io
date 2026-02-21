@@ -5,54 +5,56 @@
         <meta charset="UTF-8">
         <style>
             :root { --primary: #58a6ff; --success: #3fb950; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; }
-            body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; }
-            .container { max-width: 1000px; margin: auto; }
+            body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 15px; }
+            .container { max-width: 1250px; margin: auto; }
             .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-            .grid { display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
+            .grid { display: grid; grid-template-columns: 280px 1fr 280px; gap: 20px; }
             .list-item { padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; cursor: pointer; position: relative; }
             .list-item.active { border-color: var(--primary); background: rgba(88, 166, 255, 0.1); }
-            .chart-box { height: 450px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+            .chart-box { height: 480px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; position: relative; }
             .bar-fill { background: var(--primary); height: 8px; border-radius: 4px; transition: width 0.6s ease; width: 0; }
             .badge { font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold; margin-left: 8px; }
             .win-rate { position: absolute; right: 12px; top: 12px; font-size: 18px; font-weight: bold; }
-            .risk-msg { font-size: 12px; margin-top: 10px; padding: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); }
-            @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+            .risk-msg { font-size: 12px; margin-top: 10px; padding: 8px; border-radius: 6px; background: rgba(22, 27, 34, 0.9); border-left: 4px solid var(--primary); }
+            table { width: 100%; font-size: 12px; border-collapse: collapse; }
+            td, th { padding: 8px 2px; border-bottom: 1px solid #21262d; }
+            @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="card">
-                <h2 style="color:var(--primary); margin:0;">🚀 AI 策略多路决策矩阵 (含熔断保护)</h2>
-                <div style="font-size:12px; color:#8b949e; margin-bottom:20px;">Node: DELL 3020 | 2026-02-21 22:23:55</div>
+                <h2 style="color:var(--primary); margin:0;">🚀 AI 多路决策矩阵 (熔断+HIL验证)</h2>
+                <div style="font-size:11px; color:#8b949e; margin-bottom:15px;">Node: DELL 3020 | 2026-02-21 22:31:39</div>
                 <div class="grid">
                     <div id="list">
                         
                         <div class="list-item" onclick="select_stock(0)">
-                            <div style="font-weight:bold;">SH600026 <span class="badge" style="border: 1px solid #666666; color: #666666">🚨 趋势熔断</span></div>
+                            <div style="font-weight:bold;">SH600026 <span class="badge" style="border:1px solid #666666; color:#666666">🚨 趋势熔断</span></div>
                             <div style="font-size:11px; color:#8b949e; margin-top:5px;">今日动态: <span style="color:#ff4d4d">-9.5%</span></div>
                             <div class="win-rate" style="color:#666666">40.0%</div>
                         </div>
                         
                         <div class="list-item" onclick="select_stock(1)">
-                            <div style="font-weight:bold;">SH688223 <span class="badge" style="border: 1px solid #666666; color: #666666">🚨 趋势熔断</span></div>
+                            <div style="font-weight:bold;">SH688223 <span class="badge" style="border:1px solid #666666; color:#666666">🚨 趋势熔断</span></div>
                             <div style="font-size:11px; color:#8b949e; margin-top:5px;">今日动态: <span style="color:#ff4d4d">-5.48%</span></div>
                             <div class="win-rate" style="color:#666666">40.0%</div>
                         </div>
                         
                         <div class="list-item" onclick="select_stock(2)">
-                            <div style="font-weight:bold;">SH600176 <span class="badge" style="border: 1px solid #666666; color: #666666">🚨 趋势熔断</span></div>
+                            <div style="font-weight:bold;">SH600176 <span class="badge" style="border:1px solid #666666; color:#666666">🚨 趋势熔断</span></div>
                             <div style="font-size:11px; color:#8b949e; margin-top:5px;">今日动态: <span style="color:#ff4d4d">-6.37%</span></div>
                             <div class="win-rate" style="color:#666666">40.0%</div>
                         </div>
                         
                         <div class="list-item" onclick="select_stock(3)">
-                            <div style="font-weight:bold;">SZ000975 <span class="badge" style="border: 1px solid #3fb950; color: #3fb950">💡 逢低潜伏</span></div>
+                            <div style="font-weight:bold;">SZ000975 <span class="badge" style="border:1px solid #3fb950; color:#3fb950">💡 逢低潜伏</span></div>
                             <div style="font-size:11px; color:#8b949e; margin-top:5px;">今日动态: <span style="color:#ff4d4d">-3.28%</span></div>
                             <div class="win-rate" style="color:#3fb950">55.6%</div>
                         </div>
                         
                         <div class="list-item" onclick="select_stock(4)">
-                            <div style="font-weight:bold;">SZ300316 <span class="badge" style="border: 1px solid #3fb950; color: #3fb950">💡 逢低潜伏</span></div>
+                            <div style="font-weight:bold;">SZ300316 <span class="badge" style="border:1px solid #3fb950; color:#3fb950">💡 逢低潜伏</span></div>
                             <div style="font-size:11px; color:#8b949e; margin-top:5px;">今日动态: <span style="color:#ff4d4d">-3.31%</span></div>
                             <div class="win-rate" style="color:#3fb950">55.1%</div>
                         </div>
@@ -60,31 +62,37 @@
                     </div>
                     <div class="chart-box">
                         <iframe id="rf" width="100%" height="100%" frameborder="0"></iframe>
-                        <div id="warning-box" class="risk-msg" style="position: absolute; bottom: 20px; left: 20px; right: 20px; border-left: 4px solid var(--primary); background: rgba(22, 27, 34, 0.9);"></div>
+                        <div id="warning-box" class="risk-msg" style="position:absolute; bottom:15px; left:15px; right:15px;"></div>
+                    </div>
+                    <div style="border:1px solid var(--border); border-radius:8px; padding:12px; background:#0d1117;">
+                        <h3 style="margin:0 0 10px 0; font-size:14px; color:var(--primary);">🎯 HIL 闭环监测</h3>
+                        <div style="text-align:center; padding:10px; background:rgba(88,166,255,0.05); border-radius:8px; margin-bottom:15px;">
+                            <div style="font-size:10px; color:#8b949e;">历史正收益比例</div>
+                            <div style="font-size:24px; font-weight:bold; color:#ff4d4d">0.0%</div>
+                        </div>
+                        <table>
+                            <thead><tr><th align="left">日期</th><th align="left">标的</th><th align="right">动态</th></tr></thead>
+                            <tbody><tr><td>2026-02-13</td><td>SH600026</td><td style='color:#ff4d4d; text-align:right;'>-9.5%</td></tr></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <h3 id="ft">📊 特征贡献归因</h3>
-                <div id="fb"></div>
-            </div>
+            <div class="card"><h3 id="ft">📊 特征权重归因</h3><div id="fb"></div></div>
         </div>
         <script>
             const sd = [{"code": "SH600026", "tv": "SSE:600026", "score": 0.0262, "win_rate": 40.0, "tag": "\ud83d\udea8 \u8d8b\u52bf\u7194\u65ad", "color": "#666666", "msg": "\u68c0\u6d4b\u5230\u7834\u4f4d\u4e0b\u6740\uff0c\u8d8b\u52bf\u5df2\u7834\u574f\uff0c\u4e25\u7981\u63a5\u76d8\u3002", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5842}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5394}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4204}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3775}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2362}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2331}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2170}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1959}], "today_pct": -9.5}, {"code": "SH688223", "tv": "SSE:688223", "score": 0.0101, "win_rate": 40.0, "tag": "\ud83d\udea8 \u8d8b\u52bf\u7194\u65ad", "color": "#666666", "msg": "\u68c0\u6d4b\u5230\u7834\u4f4d\u4e0b\u6740\uff0c\u8d8b\u52bf\u5df2\u7834\u574f\uff0c\u4e25\u7981\u63a5\u76d8\u3002", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5842}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5394}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4204}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3775}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2362}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2331}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2170}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1959}], "today_pct": -5.48}, {"code": "SH600176", "tv": "SSE:600176", "score": 0.0092, "win_rate": 40.0, "tag": "\ud83d\udea8 \u8d8b\u52bf\u7194\u65ad", "color": "#666666", "msg": "\u68c0\u6d4b\u5230\u7834\u4f4d\u4e0b\u6740\uff0c\u8d8b\u52bf\u5df2\u7834\u574f\uff0c\u4e25\u7981\u63a5\u76d8\u3002", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 6169}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5696}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4439}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3987}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2494}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2462}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2291}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 2069}], "today_pct": -6.37}, {"code": "SZ000975", "tv": "SZSE:000975", "score": 0.0042, "win_rate": 55.6, "tag": "\ud83d\udca1 \u9022\u4f4e\u6f5c\u4f0f", "color": "#3fb950", "msg": "\u5904\u4e8e\u4f4e\u4f4d\u84c4\u52bf\uff0c\u9002\u5408\u5de6\u4fa7\u57cb\u4f0f\u3002", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5569}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5142}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4007}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3599}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2251}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2222}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2068}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1868}], "today_pct": -3.28}, {"code": "SZ300316", "tv": "SZSE:300316", "score": 0.0039, "win_rate": 55.1, "tag": "\ud83d\udca1 \u9022\u4f4e\u6f5c\u4f0f", "color": "#3fb950", "msg": "\u5904\u4e8e\u4f4e\u4f4d\u84c4\u52bf\uff0c\u9002\u5408\u5de6\u4fa7\u57cb\u4f0f\u3002", "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 100.0, "val": 5951}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 92.3, "val": 5495}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.0, "val": 4282}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 64.6, "val": 3846}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "pct": 40.4, "val": 2406}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "pct": 39.9, "val": 2375}, {"name": "CORR10 (\u4ef7\u91cf\u76f8\u5173\u6027\u5f3a\u5ea6)", "pct": 37.1, "val": 2210}, {"name": "RESI10 (\u4ef7\u683c\u4e56\u79bb/\u6b8b\u5dee)", "pct": 33.5, "val": 1996}], "today_pct": -3.31}];
             function select_stock(idx) {
                 const s = sd[idx];
-                document.getElementById('rf').src = "https://s.tradingview.com/widgetembed/?symbol=" + s.tv + "&interval=D&theme=dark&locale=zh_CN";
-                document.getElementById('ft').innerText = "📊 特征贡献归因: " + s.code;
+                document.getElementById('rf').src = "https://s.tradingview.com/widgetembed/?symbol="+s.tv+"&interval=D&theme=dark&locale=zh_CN";
+                document.getElementById('ft').innerText = "📊 特征归因: " + s.code + " (" + s.tag + ")";
                 document.getElementById('warning-box').innerHTML = "🛡️ <b>策略诊断:</b> " + s.msg;
                 document.getElementById('warning-box').style.borderColor = s.color;
-
-                let html_str = "";
+                let html = "";
                 for(let f of s.factors) {
-                    html_str += `<div style="margin-bottom:10px;"><div style="font-size:12px; display:flex; justify-content:space-between;"><span>${f.name}</span><span>${f.val}</span></div><div style="background:#21262d; height:8px; border-radius:4px; margin-top:4px; overflow:hidden;"><div class="bar-fill" style="width:${f.pct}%"></div></div></div>`;
+                    html += `<div style="margin-bottom:8px;"><div style="font-size:12px; display:flex; justify-content:space-between;"><span>${f.name}</span><span>${f.val}</span></div><div style="background:#21262d; height:8px; border-radius:4px; margin-top:4px; overflow:hidden;"><div class="bar-fill" style="width:${f.pct}%"></div></div></div>`;
                 }
-                document.getElementById('fb').innerHTML = html_str;
-                const items = document.querySelectorAll('.list-item');
-                items.forEach((el, i) => i === idx ? el.classList.add('active') : el.classList.remove('active'));
+                document.getElementById('fb').innerHTML = html;
+                document.querySelectorAll('.list-item').forEach((el, i) => i === idx ? el.classList.add('active') : el.classList.remove('active'));
             }
             select_stock(0);
         </script>
