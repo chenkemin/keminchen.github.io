@@ -4,28 +4,53 @@
     <head>
         <meta charset="UTF-8">
         <style>
-            :root { --primary: #58a6ff; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; }
+            :root { --primary: #58a6ff; --success: #3fb950; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; }
             body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; }
-            .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; max-width: 800px; margin: auto; }
-            .bar-bg { background: #21262d; height: 6px; border-radius: 3px; width: 100px; display: inline-block; }
-            .bar-fill { background: var(--primary); height: 100%; border-radius: 3px; }
+            .container { max-width: 1000px; margin: auto; }
+            .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+            .grid { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+            .list-item { padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; }
+            .list-item:hover { border-color: var(--primary); }
+            .list-item.active { border-color: var(--primary); background: rgba(88, 166, 255, 0.1); }
+            .chart-box { height: 450px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+            .bar-fill { background: var(--primary); height: 8px; border-radius: 4px; transition: width 0.6s ease; width: 0; }
+            @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
         </style>
     </head>
     <body>
-        <div class="card">
-            <h2>🚀 AI 量化日报 (Rollback Version)</h2>
-            <p style="font-size:12px; color:#8b949e;">Node: DELL 3020 | 2026-02-21 17:32:39</p>
-            <div style="background:rgba(63,185,80,0.1); padding:15px; border-radius:8px; margin-bottom:20px;">
-                <b style="color:#3fb950;">🏆 策略首选: SH600026 (中远海能)</b>
+        <div class="container">
+            <div class="card">
+                <h2 style="color:var(--primary); margin:0;">🚀 AI 策略多路决策矩阵</h2>
+                <div style="font-size:12px; color:#8b949e; margin-bottom:15px;">DELL 3020 | 2026-02-21 17:35:30</div>
+                <div class="grid">
+                    <div id="list">
+                        <div class="list-item" onclick="select(0)"><b>SH600026</b><br><small>AI评分: 0.0262</small></div><div class="list-item" onclick="select(1)"><b>SH688223</b><br><small>AI评分: 0.0101</small></div><div class="list-item" onclick="select(2)"><b>SH600176</b><br><small>AI评分: 0.0092</small></div><div class="list-item" onclick="select(3)"><b>SZ000975</b><br><small>AI评分: 0.0042</small></div><div class="list-item" onclick="select(4)"><b>SZ300316</b><br><small>AI评分: 0.0039</small></div>
+                    </div>
+                    <div class="chart-box">
+                        <iframe id="rf" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                </div>
             </div>
-            <div style="height:400px; border:1px solid var(--border); border-radius:8px; overflow:hidden;">
-                <iframe src="https://s.tradingview.com/widgetembed/?symbol=SSE:600026&interval=D&theme=dark&locale=zh_CN" width="100%" height="100%" frameborder="0"></iframe>
+            <div class="card">
+                <h3 id="ft">📊 特征贡献归因</h3>
+                <div id="fb"></div>
             </div>
-            <h3>📊 特征权重排行</h3>
-            <table style="width:100%; font-size:14px;">
-                <tr><td>WVMA10 (10日成交量加权均线)<br><small style='color:#8b949e'>Column_104</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:100.0%'></div></div></td></tr><tr><td>ROC10 (10日价格动量趋势)<br><small style='color:#8b949e'>Column_47</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:92.3312568102485%'></div></div></td></tr><tr><td>STD5 (5日短期价格波动率)<br><small style='color:#8b949e'>Column_11</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:71.96239570893476%'></div></div></td></tr><tr><td>VMA10 (10日均量)<br><small style='color:#8b949e'>Column_94</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:64.62928998147135%'></div></div></td></tr><tr><td>特征节点<br><small style='color:#8b949e'>Column_38</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:40.43622240699362%'></div></div></td></tr><tr><td>特征节点<br><small style='color:#8b949e'>Column_97</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:39.91403279022451%'></div></div></td></tr><tr><td>特征节点<br><small style='color:#8b949e'>Column_144</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:37.14762713939448%'></div></div></td></tr><tr><td>特征节点<br><small style='color:#8b949e'>Column_139</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:33.54548960530662%'></div></div></td></tr><tr><td>特征节点<br><small style='color:#8b949e'>Column_48</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:32.782330576756536%'></div></div></td></tr><tr><td>特征节点<br><small style='color:#8b949e'>Column_95</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:32.426696480719336%'></div></div></td></tr>
-            </table>
         </div>
+        <script>
+            const sd = [{"code": "SH600026", "tv": "SSE:600026", "score": 0.0262, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 108.0, "val": 5896}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 99.7, "val": 5444}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 77.7, "val": 4243}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 69.8, "val": 3811}, {"name": "Column_38", "pct": 43.7, "val": 2384}, {"name": "Column_97", "pct": 43.1, "val": 2353}, {"name": "Column_144", "pct": 40.1, "val": 2190}, {"name": "Column_139", "pct": 36.2, "val": 1978}]}, {"code": "SH688223", "tv": "SSE:688223", "score": 0.0101, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 104.0, "val": 5678}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 96.0, "val": 5242}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 74.8, "val": 4086}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 67.2, "val": 3669}, {"name": "Column_38", "pct": 42.1, "val": 2296}, {"name": "Column_97", "pct": 41.5, "val": 2266}, {"name": "Column_144", "pct": 38.6, "val": 2109}, {"name": "Column_139", "pct": 34.9, "val": 1904}]}, {"code": "SH600176", "tv": "SSE:600176", "score": 0.0092, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 101.0, "val": 5514}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 93.3, "val": 5091}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.7, "val": 3968}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 65.3, "val": 3564}, {"name": "Column_38", "pct": 40.8, "val": 2229}, {"name": "Column_97", "pct": 40.3, "val": 2201}, {"name": "Column_144", "pct": 37.5, "val": 2048}, {"name": "Column_139", "pct": 33.9, "val": 1849}]}, {"code": "SZ000975", "tv": "SZSE:000975", "score": 0.0042, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 101.0, "val": 5514}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 93.3, "val": 5091}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 72.7, "val": 3968}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 65.3, "val": 3564}, {"name": "Column_38", "pct": 40.8, "val": 2229}, {"name": "Column_97", "pct": 40.3, "val": 2201}, {"name": "Column_144", "pct": 37.5, "val": 2048}, {"name": "Column_139", "pct": 33.9, "val": 1849}]}, {"code": "SZ300316", "tv": "SZSE:300316", "score": 0.0039, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "pct": 102.0, "val": 5569}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "pct": 94.2, "val": 5142}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "pct": 73.4, "val": 4007}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "pct": 65.9, "val": 3599}, {"name": "Column_38", "pct": 41.2, "val": 2251}, {"name": "Column_97", "pct": 40.7, "val": 2222}, {"name": "Column_144", "pct": 37.9, "val": 2068}, {"name": "Column_139", "pct": 34.2, "val": 1868}]}];
+            function select(idx) {
+                const s = sd[idx];
+                document.getElementById('rf').src = ;
+                document.getElementById('ft').innerText = "📊 特征贡献归因: " + s.code;
+                
+                const b = document.getElementById('fb');
+                b.innerHTML = s.factors.map(f => ).join('');
+
+                const items = document.querySelectorAll('.list-item');
+                items.forEach((el, i) => i === idx ? el.classList.add('active') : el.classList.remove('active'));
+            }
+            select(0);
+        </script>
     </body>
     </html>
     
