@@ -6,64 +6,74 @@
         <style>
             :root { --primary: #58a6ff; --success: #3fb950; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; }
             body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; }
-            .container { max-width: 1000px; margin: auto; }
+            .container { max-width: 1200px; margin: auto; }
             .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-            .grid { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+            .grid { display: grid; grid-template-columns: 280px 1fr 280px; gap: 20px; }
             .list-item { padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; position: relative; }
             .list-item:hover { border-color: var(--primary); }
             .list-item.active { border-color: var(--primary); background: rgba(88, 166, 255, 0.1); }
             .chart-box { height: 450px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
             .bar-fill { background: var(--primary); height: 8px; border-radius: 4px; transition: width 0.6s ease; width: 0; }
-            
-            /* 新增：策略徽章和预测概率样式 */
             .badge { font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold; margin-left: 8px; vertical-align: middle; }
             .win-rate { position: absolute; right: 12px; top: 12px; font-size: 18px; font-weight: bold; color: var(--primary); }
             .win-rate small { font-size: 10px; font-weight: normal; color: #8b949e; display: block; text-align: right; }
-            
-            @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+            table { width: 100%; border-collapse: collapse; font-size: 13px; }
+            th, td { padding: 8px 4px; border-bottom: 1px solid #21262d; }
+            @media (max-width: 1000px) { .grid { grid-template-columns: 1fr; } }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="card">
-                <h2 style="color:var(--primary); margin:0;">🚀 AI 策略多路决策矩阵</h2>
-                <div style="font-size:12px; color:#8b949e; margin-bottom:15px;">Node: DELL 3020 | 2026-02-21 18:26:09</div>
+                <h2 style="color:var(--primary); margin:0;">🚀 AI 策略多路决策矩阵 & 闭环验证</h2>
+                <div style="font-size:12px; color:#8b949e; margin-bottom:15px;">Node: DELL 3020 | System Time: 2026-02-21 22:16:49</div>
                 <div class="grid">
                     <div id="list">
                         
                         <div class="list-item" onclick="select_stock(0)">
                             <div style="font-size:16px; font-weight:bold;">SH600026 <span class="badge" style="background: #ff4d4d20; color: #ff4d4d; border: 1px solid #ff4d4d">🔥 强势看多</span></div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0262</div>
-                            <div class="win-rate">85.0% <small>预测胜率</small></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">Alpha158 得分: 0.0262</div>
+                            <div class="win-rate">85.0% <small>预期置信度</small></div>
                         </div>
                         
                         <div class="list-item" onclick="select_stock(1)">
                             <div style="font-size:16px; font-weight:bold;">SH688223 <span class="badge" style="background: #3fb95020; color: #3fb950; border: 1px solid #3fb950">💡 逢低潜伏</span></div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0101</div>
-                            <div class="win-rate">63.4% <small>预测胜率</small></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">Alpha158 得分: 0.0101</div>
+                            <div class="win-rate">63.4% <small>预期置信度</small></div>
                         </div>
                         
                         <div class="list-item" onclick="select_stock(2)">
                             <div style="font-size:16px; font-weight:bold;">SH600176 <span class="badge" style="background: #3fb95020; color: #3fb950; border: 1px solid #3fb950">💡 逢低潜伏</span></div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0092</div>
-                            <div class="win-rate">62.3% <small>预测胜率</small></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">Alpha158 得分: 0.0092</div>
+                            <div class="win-rate">62.3% <small>预期置信度</small></div>
                         </div>
                         
                         <div class="list-item" onclick="select_stock(3)">
                             <div style="font-size:16px; font-weight:bold;">SZ000975 <span class="badge" style="background: #3fb95020; color: #3fb950; border: 1px solid #3fb950">💡 逢低潜伏</span></div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0042</div>
-                            <div class="win-rate">55.6% <small>预测胜率</small></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">Alpha158 得分: 0.0042</div>
+                            <div class="win-rate">55.6% <small>预期置信度</small></div>
                         </div>
                         
                         <div class="list-item" onclick="select_stock(4)">
                             <div style="font-size:16px; font-weight:bold;">SZ300316 <span class="badge" style="background: #3fb95020; color: #3fb950; border: 1px solid #3fb950">💡 逢低潜伏</span></div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">原始推断: 0.0039</div>
-                            <div class="win-rate">55.1% <small>预测胜率</small></div>
+                            <div style="font-size:11px; color:#8b949e; margin-top:5px;">Alpha158 得分: 0.0039</div>
+                            <div class="win-rate">55.1% <small>预期置信度</small></div>
                         </div>
                         
                     </div>
                     <div class="chart-box">
                         <iframe id="rf" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                    <div style="border: 1px solid var(--border); border-radius: 8px; padding: 15px; background: #0d1117;">
+                        <h3 style="margin-top:0; font-size:15px; color:var(--primary);">🎯 HIL 实盘闭环监测</h3>
+                        <div style="margin-bottom: 15px; text-align: center; padding: 10px; background: rgba(88, 166, 255, 0.1); border-radius: 8px;">
+                            <div style="font-size: 11px; color: #8b949e;">历史精选标的今日正收益比例</div>
+                            <div style="font-size: 24px; font-weight: bold; color: #ff4d4d;">0.0%</div>
+                        </div>
+                        <table>
+                            <thead><tr><th style="text-align:left;">推荐日</th><th style="text-align:left;">标的</th><th style="text-align:right;">今日动态</th></tr></thead>
+                            <tbody><tr><td>2026-02-13</td><td>SH600026</td><td style='color:#ff4d4d; font-weight:bold; text-align:right;'>▼ -9.5%</td></tr></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
