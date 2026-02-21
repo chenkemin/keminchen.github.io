@@ -6,150 +6,108 @@
         <style>
             :root { --primary: #58a6ff; --success: #3fb950; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; }
             body { background: var(--bg); color: var(--text); font-family: -apple-system, sans-serif; padding: 25px; }
-            .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; max-width: 650px; margin: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-            h1 { color: var(--primary); font-size: 22px; margin-bottom: 5px; }
+            .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; max-width: 800px; margin: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
             .meta { font-size: 12px; color: #8b949e; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
             .winner-box { background: rgba(63, 185, 80, 0.1); border: 1px solid var(--success); padding: 15px; border-radius: 8px; margin: 20px 0; }
-            .winner-label { color: var(--success); font-size: 13px; font-weight: bold; }
-            .winner-val { font-size: 26px; font-weight: bold; margin-top: 5px; letter-spacing: 1px; }
+            .winner-val { font-size: 26px; font-weight: bold; }
+            .chart-container { margin: 20px 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); height: 400px; }
             table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-            th { text-align: left; font-size: 12px; color: #8b949e; padding-bottom: 10px; }
-            td { padding: 12px 0; border-bottom: 1px solid #21262d; }
-            .feat-main { font-weight: bold; font-size: 14px; display: block; }
-            .feat-sub { font-size: 11px; color: #8b949e; }
-            .bar-bg { background: #21262d; height: 6px; border-radius: 3px; width: 80px; display: inline-block; vertical-align: middle; margin-left: 10px; }
+            td { padding: 12px 8px; border-bottom: 1px solid #21262d; }
+            .bar-bg { background: #21262d; height: 6px; border-radius: 3px; width: 80px; display: inline-block; vertical-align: middle; }
             .bar-fill { background: var(--primary); height: 100%; border-radius: 3px; }
-            .footer { text-align: center; margin-top: 30px; font-size: 11px; color: #8b949e; }
         </style>
     </head>
     <body>
         <div class="card">
-            <h1>🚀 AI 策略归因看板</h1>
-            <div class="meta">节点: DELL 30200 SFF | 生成: 2026-02-21 16:25:36</div>
+            <h1>🚀 AI 策略实时监控</h1>
+            <div class="meta">计算节点: DELL 30200 | 刷新: 2026-02-21 16:33:08</div>
+            
             <div class="winner-box">
-                <div class="winner-label">🏆 本期首选标的 (Top Signal)</div>
-                <div class="winner-val">SH600026 <span style="font-size: 16px; font-weight: normal;">(中远海能)</span></div>
+                <div style="color: var(--success); font-size: 13px; font-weight: bold;">🏆 预测首选</div>
+                <div class="winner-val">SH600026 (中远海能)</div>
             </div>
-            <h3>📊 特征贡献权重排行榜</h3>
+
+            <div class="chart-container">
+                <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76292&symbol=SSE%3A600026&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=zh_CN" 
+                        width="100%" height="100%" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen></iframe>
+            </div>
+
+            <h3>📊 特征贡献权重排名</h3>
             <table>
-                <thead><tr><th>因子逻辑 (Alpha158)</th><th style="text-align:right;">贡献增益 (Gain)</th></tr></thead>
                 <tbody>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">WVMA10 (10日成交量加权均线)</span>
-                            <span class="feat-sub">Column_104</span>
-                        </td>
+                        <td><b>WVMA10 (10日成交量加权均线)</b><br><small style="color:#8b949e">Column_104</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">5460</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:100.0%"></div></div>
                         </td>
                     </tr>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">ROC10 (10日价格动量趋势)</span>
-                            <span class="feat-sub">Column_47</span>
-                        </td>
+                        <td><b>ROC10 (10日价格动量趋势)</b><br><small style="color:#8b949e">Column_47</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">5041</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:92.3312568102485%"></div></div>
                         </td>
                     </tr>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">STD5 (5日短期价格波动率)</span>
-                            <span class="feat-sub">Column_11</span>
-                        </td>
+                        <td><b>STD5 (5日短期价格波动率)</b><br><small style="color:#8b949e">Column_11</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">3929</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:71.96239570893476%"></div></div>
                         </td>
                     </tr>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">VMA10 (10日均量)</span>
-                            <span class="feat-sub">Column_94</span>
-                        </td>
+                        <td><b>VMA10 (10日均量)</b><br><small style="color:#8b949e">Column_94</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">3528</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:64.62928998147135%"></div></div>
                         </td>
                     </tr>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">RSV5 (5日超买超卖指标)</span>
-                            <span class="feat-sub">Column_38</span>
-                        </td>
+                        <td><b>RSV5 (5日超买超卖指标)</b><br><small style="color:#8b949e">Column_38</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">2207</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:40.43622240699362%"></div></div>
                         </td>
                     </tr>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">VSTD10 (10日成交量稳定性)</span>
-                            <span class="feat-sub">Column_97</span>
-                        </td>
+                        <td><b>VSTD10 (10日成交量稳定性)</b><br><small style="color:#8b949e">Column_97</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">2179</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:39.91403279022451%"></div></div>
                         </td>
                     </tr>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">CORR10 (价量相关性强度)</span>
-                            <span class="feat-sub">Column_144</span>
-                        </td>
+                        <td><b>CORR10 (价量相关性强度)</b><br><small style="color:#8b949e">Column_144</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">2028</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:37.14762713939448%"></div></div>
                         </td>
                     </tr>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">RESI10 (价格乖离/残差)</span>
-                            <span class="feat-sub">Column_139</span>
-                        </td>
+                        <td><b>RESI10 (价格乖离/残差)</b><br><small style="color:#8b949e">Column_139</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">1831</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:33.54548960530662%"></div></div>
                         </td>
                     </tr>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">ROC20 (20日中期动量)</span>
-                            <span class="feat-sub">Column_48</span>
-                        </td>
+                        <td><b>ROC20 (20日中期动量)</b><br><small style="color:#8b949e">Column_48</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">1789</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:32.782330576756536%"></div></div>
                         </td>
                     </tr>
                 
                     <tr>
-                        <td>
-                            <span class="feat-main">VMA20 (20日均量)</span>
-                            <span class="feat-sub">Column_95</span>
-                        </td>
+                        <td><b>VMA20 (20日均量)</b><br><small style="color:#8b949e">Column_95</small></td>
                         <td style="text-align:right;">
-                            <span style="font-size: 13px;">1770</span>
                             <div class="bar-bg"><div class="bar-fill" style="width:32.426696480719336%"></div></div>
                         </td>
                     </tr>
                 
                 </tbody>
             </table>
-            <div class="footer">
-                基于 LightGBM 0.005 LR 训练 | 数据由 DELL 30200 节点本地计算渲染
-            </div>
         </div>
     </body>
     </html>
