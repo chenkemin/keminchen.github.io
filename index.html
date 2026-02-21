@@ -3,82 +3,108 @@
     <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             :root { --primary: #58a6ff; --success: #3fb950; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; }
-            body { background: var(--bg); color: var(--text); font-family: -apple-system, sans-serif; padding: 15px; margin: 0; }
-            .container { max-width: 1200px; margin: auto; }
+            body { background: var(--bg); color: var(--text); font-family: -apple-system, sans-serif; padding: 20px; }
+            .container { max-width: 1100px; margin: auto; }
+            .grid { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
             .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-            .grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
-            .list-item { padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
-            .list-item:hover { background: #21262d; border-color: var(--primary); }
-            .list-item.active { background: rgba(88, 166, 255, 0.1); border-color: var(--primary); }
-            .chart-box { height: 500px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-            table { width: 100%; font-size: 13px; }
-            td { padding: 8px; border-bottom: 1px solid #21262d; }
-            .bar { background: #21262d; height: 4px; border-radius: 2px; width: 100px; display: inline-block; vertical-align: middle; }
-            .fill { background: var(--primary); height: 100%; border-radius: 2px; }
-            @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+            .list-item { padding: 15px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: all 0.3s; }
+            .list-item.active { border-color: var(--primary); background: rgba(88, 166, 255, 0.1); box-shadow: 0 0 15px rgba(88,166,255,0.2); }
+            .chart-frame { height: 450px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+            
+            /* 呼吸感条形图动画 */
+            .bar-row { margin-bottom: 15px; }
+            .bar-label { font-size: 13px; margin-bottom: 5px; display: flex; justify-content: space-between; }
+            .bar-bg { background: #21262d; height: 8px; border-radius: 4px; overflow: hidden; }
+            .bar-fill { background: var(--primary); height: 100%; width: 0%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+            
+            @keyframes breathe { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
+            .active-breathe { animation: breathe 2s infinite ease-in-out; }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="card">
-                <h1 style="color:var(--primary); font-size:22px; margin:0 0 5px 0;">🚀 AI 策略多路监控矩阵</h1>
-                <div style="font-size:12px; color:#8b949e; margin-bottom:15px;">节点: DELL 3020 | 刷新: 2026-02-21 17:24:17 | 算法: LightGBM + Alpha158</div>
+                <h2 style="color:var(--primary); margin:0 0 10px 0;">🚀 AI 策略多路决策终端</h2>
+                <div style="font-size:12px; color:#8b949e; margin-bottom:20px;">Node: DELL 3020 | 2026-02-21 17:29:03</div>
                 
                 <div class="grid">
-                    <div>
-                        <h3 style="font-size:14px; color:var(--success);">🏆 潜力池 Top 5</h3>
+                    <div id="stock-list">
                         
-                        <div class="list-item active" onclick="changeSymbol('SSE:600026', this)">
-                            <div style="font-weight:bold; font-size:16px;">SH600026</div>
-                            <div style="font-size:11px; color:#8b949e;">AI 评分: 0.0262</div>
+                        <div class="list-item active" onclick="updateView('SH600026')">
+                            <div style="font-weight:bold;">SH600026</div>
+                            <div style="font-size:11px; color:var(--success);">评分: 0.0262</div>
                         </div>
                         
-                        <div class="list-item " onclick="changeSymbol('SSE:688223', this)">
-                            <div style="font-weight:bold; font-size:16px;">SH688223</div>
-                            <div style="font-size:11px; color:#8b949e;">AI 评分: 0.0101</div>
+                        <div class="list-item " onclick="updateView('SH688223')">
+                            <div style="font-weight:bold;">SH688223</div>
+                            <div style="font-size:11px; color:var(--success);">评分: 0.0101</div>
                         </div>
                         
-                        <div class="list-item " onclick="changeSymbol('SSE:600176', this)">
-                            <div style="font-weight:bold; font-size:16px;">SH600176</div>
-                            <div style="font-size:11px; color:#8b949e;">AI 评分: 0.0092</div>
+                        <div class="list-item " onclick="updateView('SH600176')">
+                            <div style="font-weight:bold;">SH600176</div>
+                            <div style="font-size:11px; color:var(--success);">评分: 0.0092</div>
                         </div>
                         
-                        <div class="list-item " onclick="changeSymbol('SZSE:000975', this)">
-                            <div style="font-weight:bold; font-size:16px;">SZ000975</div>
-                            <div style="font-size:11px; color:#8b949e;">AI 评分: 0.0042</div>
+                        <div class="list-item " onclick="updateView('SZ000975')">
+                            <div style="font-weight:bold;">SZ000975</div>
+                            <div style="font-size:11px; color:var(--success);">评分: 0.0042</div>
                         </div>
                         
-                        <div class="list-item " onclick="changeSymbol('SZSE:300316', this)">
-                            <div style="font-weight:bold; font-size:16px;">SZ300316</div>
-                            <div style="font-size:11px; color:#8b949e;">AI 评分: 0.0039</div>
+                        <div class="list-item " onclick="updateView('SZ300316')">
+                            <div style="font-weight:bold;">SZ300316</div>
+                            <div style="font-size:11px; color:var(--success);">评分: 0.0039</div>
                         </div>
                         
                     </div>
-
-                    <div class="chart-box">
-                        <iframe id="tv_chart" src="https://s.tradingview.com/widgetembed/?symbol=SSE:600026&interval=D&theme=dark&locale=zh_CN" width="100%" height="100%" frameborder="0"></iframe>
+                    <div class="chart-frame">
+                        <iframe id="tv-iframe" width="100%" height="100%" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h3 style="margin-top:0; font-size:16px;">📊 核心特征权重贡献 (Factor Gain)</h3>
-                <table>
-                    <tr><td><b>WVMA10 (10日成交量加权均线)</b><br><small style='color:#8b949e'>Column_104</small></td><td style='text-align:right;'><div class='bar'><div class='fill' style='width:100.0%'></div></div></td></tr><tr><td><b>ROC10 (10日价格动量趋势)</b><br><small style='color:#8b949e'>Column_47</small></td><td style='text-align:right;'><div class='bar'><div class='fill' style='width:92.3312568102485%'></div></div></td></tr><tr><td><b>STD5 (5日短期价格波动率)</b><br><small style='color:#8b949e'>Column_11</small></td><td style='text-align:right;'><div class='bar'><div class='fill' style='width:71.96239570893476%'></div></div></td></tr><tr><td><b>VMA10 (10日均量)</b><br><small style='color:#8b949e'>Column_94</small></td><td style='text-align:right;'><div class='bar'><div class='fill' style='width:64.62928998147135%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_38</small></td><td style='text-align:right;'><div class='bar'><div class='fill' style='width:40.43622240699362%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_97</small></td><td style='text-align:right;'><div class='bar'><div class='fill' style='width:39.91403279022451%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_144</small></td><td style='text-align:right;'><div class='bar'><div class='fill' style='width:37.14762713939448%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_139</small></td><td style='text-align:right;'><div class='bar'><div class='fill' style='width:33.54548960530662%'></div></div></td></tr>
-                </table>
+                <h3 id="factor-title" style="margin-top:0; font-size:16px;">📊 特征权重动态归因: SH600026</h3>
+                <div id="factor-bars">
+                    </div>
             </div>
         </div>
 
         <script>
-            function changeSymbol(symbol, el) {
-                document.getElementById('tv_chart').src = "https://s.tradingview.com/widgetembed/?symbol=" + symbol + "&interval=D&theme=dark&locale=zh_CN";
-                let items = document.getElementsByClassName('list-item');
-                for(let item of items) item.classList.remove('active');
-                el.classList.add('active');
+            const data = {"SH600026": {"tv": "SSE:600026", "score": 0.0262, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "id": "Column_104", "pct": 110.0, "val": 6006}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "id": "Column_47", "pct": 83.1, "val": 4537}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "id": "Column_11", "pct": 64.8, "val": 3536}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "id": "Column_94", "pct": 71.1, "val": 3881}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "id": "Column_38", "pct": 44.5, "val": 2428}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "id": "Column_97", "pct": 43.9, "val": 2397}]}, "SH688223": {"tv": "SSE:688223", "score": 0.0101, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "id": "Column_104", "pct": 90.0, "val": 4914}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "id": "Column_47", "pct": 101.6, "val": 5545}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "id": "Column_11", "pct": 79.2, "val": 4322}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "id": "Column_94", "pct": 58.2, "val": 3175}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "id": "Column_38", "pct": 36.4, "val": 1987}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "id": "Column_97", "pct": 35.9, "val": 1961}]}, "SH600176": {"tv": "SSE:600176", "score": 0.0092, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "id": "Column_104", "pct": 90.0, "val": 4914}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "id": "Column_47", "pct": 101.6, "val": 5545}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "id": "Column_11", "pct": 79.2, "val": 4322}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "id": "Column_94", "pct": 58.2, "val": 3175}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "id": "Column_38", "pct": 36.4, "val": 1987}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "id": "Column_97", "pct": 35.9, "val": 1961}]}, "SZ000975": {"tv": "SZSE:000975", "score": 0.0042, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "id": "Column_104", "pct": 110.0, "val": 6006}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "id": "Column_47", "pct": 83.1, "val": 4537}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "id": "Column_11", "pct": 64.8, "val": 3536}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "id": "Column_94", "pct": 71.1, "val": 3881}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "id": "Column_38", "pct": 44.5, "val": 2428}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "id": "Column_97", "pct": 43.9, "val": 2397}]}, "SZ300316": {"tv": "SZSE:300316", "score": 0.0039, "factors": [{"name": "WVMA10 (10\u65e5\u6210\u4ea4\u91cf\u52a0\u6743\u5747\u7ebf)", "id": "Column_104", "pct": 90.0, "val": 4914}, {"name": "ROC10 (10\u65e5\u4ef7\u683c\u52a8\u91cf\u8d8b\u52bf)", "id": "Column_47", "pct": 101.6, "val": 5545}, {"name": "STD5 (5\u65e5\u77ed\u671f\u4ef7\u683c\u6ce2\u52a8\u7387)", "id": "Column_11", "pct": 79.2, "val": 4322}, {"name": "VMA10 (10\u65e5\u5747\u91cf)", "id": "Column_94", "pct": 58.2, "val": 3175}, {"name": "RSV5 (5\u65e5\u8d85\u4e70\u8d85\u5356\u6307\u6807)", "id": "Column_38", "pct": 36.4, "val": 1987}, {"name": "VSTD10 (10\u65e5\u6210\u4ea4\u91cf\u7a33\u5b9a\u6027)", "id": "Column_97", "pct": 35.9, "val": 1961}]}};
+            
+            function updateView(code) {
+                // 1. 更新 K 线图
+                document.getElementById('tv-iframe').src = ;
+                
+                // 2. 更新列表状态
+                const items = document.querySelectorAll('.list-item');
+                items.forEach(el => {
+                    el.classList.remove('active');
+                    if(el.innerText.includes(code)) el.classList.add('active');
+                });
+
+                // 3. 更新标题
+                document.getElementById('factor-title').innerText = ;
+
+                // 4. 更新条形图（带呼吸感切换动画）
+                const container = document.getElementById('factor-bars');
+                container.innerHTML = '';
+                data[code].factors.forEach(f => {
+                    const row = document.createElement('div');
+                    row.className = 'bar-row';
+                    row.innerHTML = ;
+                    container.appendChild(row);
+                    // 延迟触发动画实现平滑增长
+                    setTimeout(() => {
+                        row.querySelector('.bar-fill').style.width = f.pct + '%';
+                    }, 50);
+                });
             }
+
+            // 初始化
+            updateView('SH600026');
         </script>
     </body>
     </html>
