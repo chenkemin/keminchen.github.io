@@ -5,53 +5,57 @@
         <meta charset="UTF-8">
         <style>
             :root { --primary: #58a6ff; --success: #3fb950; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; }
-            body { background: var(--bg); color: var(--text); font-family: -apple-system, sans-serif; padding: 15px; font-size: 14px; }
+            body { background: var(--bg); color: var(--text); font-family: -apple-system, sans-serif; padding: 15px; }
             .container { max-width: 1000px; margin: auto; }
             .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+            .risk-banner { background: rgba(255, 77, 77, 0.1); border: 2px solid var(--success); color: var(--success); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center; }
             .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
-            .winner-val { font-size: 24px; font-weight: bold; color: var(--success); }
-            .chart-frame { height: 400px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+            .chart-frame { height: 450px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
             table { width: 100%; border-collapse: collapse; }
             td, th { padding: 10px 5px; border-bottom: 1px solid #21262d; text-align: left; }
             .bar-bg { background: #21262d; height: 5px; border-radius: 3px; width: 60px; display: inline-block; vertical-align: middle; }
             .bar-fill { background: var(--primary); height: 100%; border-radius: 3px; }
-            @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
         </style>
     </head>
     <body>
         <div class="container">
+            <div class="risk-banner">
+                当前市场波动率受控，策略运行稳定。
+            </div>
+
             <div class="card">
-                <h1 style="color:var(--primary); font-size:20px;">🚀 AI 策略决策终端 (DELL 3020)</h1>
                 <div class="grid">
                     <div>
-                        <div style="background:rgba(63,185,80,0.1); border:1px solid var(--success); padding:12px; border-radius:8px;">
-                            <div style="font-size:12px; color:var(--success);">🏆 今日推荐</div>
-                            <div class="winner-val">SH600026 (中远海能)</div>
-                        </div>
+                        <div style="font-size: 12px; color: var(--primary);">🎯 AI 预测目标</div>
+                        <div style="font-size: 26px; font-weight: bold;">SH600026 (中远海能)</div>
                         <div class="chart-frame" style="margin-top:15px;">
                             <iframe src="https://s.tradingview.com/widgetembed/?symbol=SSE:600026&interval=D&theme=dark&locale=zh_CN" width="100%" height="100%" frameborder="0"></iframe>
                         </div>
                     </div>
                     <div>
-                        <div style="border:1px solid var(--border); border-radius:8px; padding:15px; height:100%;">
-                            <h3 style="margin-top:0; font-size:15px;">📅 近期回测跟踪</h3>
-                            <table>
-                                <thead><tr><th>日期</th><th>标的</th><th>表现</th></tr></thead>
-                                <tbody><tr><td>2026-02-13</td><td>SH600026</td><td style='color:#3fb950'>监测中...</td></tr></tbody>
+                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 15px;">
+                            <h3 style="margin-top:0; font-size:15px; color:var(--primary);">📅 历史预测足迹</h3>
+                            <table style="font-size:12px;">
+                                <thead><tr><th>日期</th><th>标的</th></tr></thead>
+                                <tbody><tr><td>2026-02-13</td><td>SH600026</td></tr></tbody>
                             </table>
-                            <p style="font-size:11px; color:#8b949e; margin-top:15px;">* 表现数据于收盘后自动同步</p>
+                        </div>
+                        <div style="margin-top:20px; padding:15px; background:var(--bg); border-radius:8px; border:1px solid var(--border);">
+                            <div style="font-size:12px; color:#8b949e;">实时风险等级</div>
+                            <div style="font-size:20px; font-weight:bold; color:var(--success);">正常</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h3 style="margin-top:0;">📊 特征权重归因</h3>
+                <h3 style="margin-top:0;">📊 核心特征权重归因</h3>
                 <table>
                     <tbody>
                     <tr><td><b>WVMA10 (10日成交量加权均线)</b><br><small style='color:#8b949e'>Column_104</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:100.0%'></div></div></td></tr><tr><td><b>ROC10 (10日价格动量趋势)</b><br><small style='color:#8b949e'>Column_47</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:92.3312568102485%'></div></div></td></tr><tr><td><b>STD5 (5日短期价格波动率)</b><br><small style='color:#8b949e'>Column_11</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:71.96239570893476%'></div></div></td></tr><tr><td><b>VMA10 (10日均量)</b><br><small style='color:#8b949e'>Column_94</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:64.62928998147135%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_38</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:40.43622240699362%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_97</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:39.91403279022451%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_144</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:37.14762713939448%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_139</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:33.54548960530662%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_48</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:32.782330576756536%'></div></div></td></tr><tr><td><b>Alpha158特征</b><br><small style='color:#8b949e'>Column_95</small></td><td style='text-align:right;'><div class='bar-bg'><div class='bar-fill' style='width:32.426696480719336%'></div></div></td></tr>
                     </tbody>
                 </table>
+                <div style="text-align:center; font-size:11px; color:#8b949e; margin-top:20px;">Node: DELL 3020 | Last Update: 2026-02-21 17:19:12</div>
             </div>
         </div>
     </body>
