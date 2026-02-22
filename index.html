@@ -9,6 +9,7 @@
             .container { max-width: 1250px; margin: auto; }
             .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
             .grid { display: grid; grid-template-columns: 280px 1fr 280px; gap: 20px; }
+            /* 滚动条样式 */
             #list { max-height: 480px; overflow-y: auto; padding-right: 5px; }
             #list::-webkit-scrollbar { width: 4px; }
             #list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
@@ -28,7 +29,7 @@
         <div class="container">
             <div class="card">
                 <h2 style="color:var(--primary); margin:0;">🚀 AI 多路决策矩阵 (熔断+HIL验证)</h2>
-                <div style="font-size:11px; color:#8b949e; margin-bottom:15px;">Node: DELL 3020 | 2026-02-22 08:24:04</div>
+                <div style="font-size:11px; color:#8b949e; margin-bottom:15px;">Node: DELL 3020 | 2026-02-22 08:33:48</div>
                 <div class="grid">
                     <div id="list">
                         
@@ -122,7 +123,8 @@
                 document.getElementById('warning-box').style.borderColor = s.color;
                 let html = "";
                 for(let f of s.factors) {
-                    html += `<div style="margin-bottom:8px;"><div style="font-size:12px; display:flex; justify-content:space-between;"><span>\${f.name}</span><span>\${f.val}</span></div><div style="background:#21262d; height:8px; border-radius:4px; margin-top:4px; overflow:hidden;"><div class="bar-fill" style="width:\${f.pct}%"></div></div></div>`;
+                    // 修复此处转义逻辑：去掉了反斜杠，保留双大括号
+                    html += `<div style="margin-bottom:8px;"><div style="font-size:12px; display:flex; justify-content:space-between;"><span>${f.name}</span><span>${f.val}</span></div><div style="background:#21262d; height:8px; border-radius:4px; margin-top:4px; overflow:hidden;"><div class="bar-fill" style="width:${f.pct}%"></div></div></div>`;
                 }
                 document.getElementById('fb').innerHTML = html;
                 document.querySelectorAll('.list-item').forEach((el, i) => i === idx ? el.classList.add('active') : el.classList.remove('active'));
