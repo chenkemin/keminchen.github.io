@@ -1,1 +1,202 @@
-[{"raw":"Column_38","importance":9595.3914186358,"feature":"WVMA5 (5\u65e5\u91cf\u4ef7\u52a8\u80fd\/\u80fd\u91cf)"},{"raw":"Column_1","importance":8691.9344301224,"feature":"KUP (\u4e0a\u5f71\u7ebf\/\u5f00\u76d8\u57fa\u51c6)"},{"raw":"Column_5","importance":8328.3453508615,"feature":"KUP2 (\u538b\u529b\/\u6536\u76d8\u57fa\u51c6)"},{"raw":"Column_138","importance":7973.6383230686,"feature":"IMAP5 (5\u65e5\u4ef7\u683c\u5185\u5728\u4f4d\u7f6e\/\u652f\u6491)"},{"raw":"Column_37","importance":7921.3693304062,"feature":"WVMA10 (10\u65e5\u91cf\u4ef7\u52a8\u80fd\/\u4e2d\u7ebf\u80fd\u91cf)"},{"raw":"Column_33","importance":7374.2676349878,"feature":"VMA5 (5\u65e5\u5747\u91cf\u8d8b\u52bf)"},{"raw":"Column_17","importance":7003.8855930567,"feature":"CNTP10 (10\u65e5\u4e0a\u6da8\u8109\u51b2\/\u5f3a\u52bf\u5ea6)"},{"raw":"Column_39","importance":6962.7723844051,"feature":"WVMA20 (20\u65e5\u91cf\u4ef7\u52a8\u80fd\/\u957f\u7ebf\u52a8\u91cf)"},{"raw":"Column_128","importance":6929.4357134104,"feature":"MA5 (5\u65e5\u5747\u7ebf\u504f\u79bb\u5ea6)"},{"raw":"Column_10","importance":6676.1962175369,"feature":"KLOW (K\u7ebf\u4f4e\u4f4d\u5360\u6bd4\/\u4e0b\u5f71\u7ebf\u529b\u5ea6)"},{"raw":"Column_91","importance":6613.8424762487,"feature":"RSVI5 (5\u65e5\u53cd\u8f6c\u6ce2\u52a8\u56e0\u5b50)"},{"raw":"Column_36","importance":6512.1028585434,"feature":"VMA10 (10\u65e5\u6210\u4ea4\u91cf\u8d8b\u52bf)"},{"raw":"Column_27","importance":6502.5959038734,"feature":"KLOW20 (20\u65e5\u4ef7\u683c\u76f8\u5bf9\u4f4e\u70b9\u4f4d\u7f6e)"},{"raw":"Column_133","importance":6372.6620875597,"feature":"MA10 (10\u65e5\u5747\u7ebf\u504f\u79bb\u5ea6)"},{"raw":"Column_2","importance":6298.0356374979,"feature":"KLOW (\u4e0b\u5f71\u7ebf\/\u652f\u6491\u529b\u5ea6)"}]
+[
+    {
+        "feature": "KLEN",
+        "importance": 99850.9722825686
+    },
+    {
+        "feature": "RESI5",
+        "importance": 69962.63783168791
+    },
+    {
+        "feature": "KSFT",
+        "importance": 65049.09860920907
+    },
+    {
+        "feature": "HIGH0",
+        "importance": 61622.51389280955
+    },
+    {
+        "feature": "MIN60",
+        "importance": 61289.85515006383
+    },
+    {
+        "feature": "KLOW",
+        "importance": 38674.798135360084
+    },
+    {
+        "feature": "RESI10",
+        "importance": 33063.2181242307
+    },
+    {
+        "feature": "VSTD5",
+        "importance": 29890.06725144386
+    },
+    {
+        "feature": "QTLD5",
+        "importance": 28079.372731765114
+    },
+    {
+        "feature": "RSQR5",
+        "importance": 27106.10625298818
+    },
+    {
+        "feature": "SUMN5",
+        "importance": 26940.160958290096
+    },
+    {
+        "feature": "VMA5",
+        "importance": 24509.174605369568
+    },
+    {
+        "feature": "RSV60",
+        "importance": 24102.19210243225
+    },
+    {
+        "feature": "QTLD10",
+        "importance": 23332.28958320618
+    },
+    {
+        "feature": "STD20",
+        "importance": 21806.03444806735
+    },
+    {
+        "feature": "BETA10",
+        "importance": 21334.436922709145
+    },
+    {
+        "feature": "STD10",
+        "importance": 20085.3602763017
+    },
+    {
+        "feature": "MIN30",
+        "importance": 20079.989830096565
+    },
+    {
+        "feature": "STD60",
+        "importance": 20005.909467617672
+    },
+    {
+        "feature": "WVMA60",
+        "importance": 19838.166094700497
+    },
+    {
+        "feature": "QTLU5",
+        "importance": 19326.376136620842
+    },
+    {
+        "feature": "MAX5",
+        "importance": 19239.797135194145
+    },
+    {
+        "feature": "RANK60",
+        "importance": 19152.791280031204
+    },
+    {
+        "feature": "QTLU60",
+        "importance": 19013.473478078842
+    },
+    {
+        "feature": "BETA60",
+        "importance": 18944.90242385864
+    },
+    {
+        "feature": "LOW0",
+        "importance": 18925.857618649803
+    },
+    {
+        "feature": "VMA10",
+        "importance": 17777.421169519424
+    },
+    {
+        "feature": "STD30",
+        "importance": 17505.053291877106
+    },
+    {
+        "feature": "STD5",
+        "importance": 16115.948582569757
+    },
+    {
+        "feature": "VMA20",
+        "importance": 16090.385640223823
+    },
+    {
+        "feature": "CNTP60",
+        "importance": 15654.184874614079
+    },
+    {
+        "feature": "ROC60",
+        "importance": 15607.686159054441
+    },
+    {
+        "feature": "CORD10",
+        "importance": 15570.646302302677
+    },
+    {
+        "feature": "VSTD30",
+        "importance": 15426.044764757156
+    },
+    {
+        "feature": "CORD5",
+        "importance": 14872.153798341751
+    },
+    {
+        "feature": "RESI30",
+        "importance": 14801.35382930438
+    },
+    {
+        "feature": "RESI20",
+        "importance": 14172.166169166565
+    },
+    {
+        "feature": "CORR30",
+        "importance": 14103.50848253568
+    },
+    {
+        "feature": "WVMA5",
+        "importance": 14052.853929758072
+    },
+    {
+        "feature": "RANK10",
+        "importance": 13933.642050981522
+    },
+    {
+        "feature": "SUMD5",
+        "importance": 13723.954967657723
+    },
+    {
+        "feature": "MIN5",
+        "importance": 13615.936133941013
+    },
+    {
+        "feature": "VMA60",
+        "importance": 13392.24629672368
+    },
+    {
+        "feature": "MA5",
+        "importance": 13343.988806962967
+    },
+    {
+        "feature": "VSTD20",
+        "importance": 13217.76401678721
+    },
+    {
+        "feature": "BETA30",
+        "importance": 13075.114561239876
+    },
+    {
+        "feature": "RSQR10",
+        "importance": 13061.04978775978
+    },
+    {
+        "feature": "KMID",
+        "importance": 12929.073642015457
+    },
+    {
+        "feature": "CORD60",
+        "importance": 12897.177421649298
+    },
+    {
+        "feature": "ROC30",
+        "importance": 12874.367678165438
+    }
+]
