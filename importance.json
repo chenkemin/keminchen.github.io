@@ -1,7 +1,7 @@
 [
     {
         "feature": "KLEN",
-        "importance": 99850.9722825686
+        "importance": 99844.82976611455
     },
     {
         "feature": "RESI5",
@@ -17,7 +17,7 @@
     },
     {
         "feature": "MIN60",
-        "importance": 61486.374894936875
+        "importance": 61242.961559772484
     },
     {
         "feature": "KLOW",
@@ -49,7 +49,7 @@
     },
     {
         "feature": "RSV60",
-        "importance": 23905.672357559204
+        "importance": 24149.08569272359
     },
     {
         "feature": "QTLD10",
@@ -64,12 +64,12 @@
         "importance": 21334.436922709145
     },
     {
-        "feature": "STD10",
-        "importance": 20085.3602763017
+        "feature": "MIN30",
+        "importance": 20100.561495542526
     },
     {
-        "feature": "MIN30",
-        "importance": 20059.33966326714
+        "feature": "STD10",
+        "importance": 20085.3602763017
     },
     {
         "feature": "STD60",
@@ -101,7 +101,7 @@
     },
     {
         "feature": "LOW0",
-        "importance": 18925.857618649803
+        "importance": 18932.000135103863
     },
     {
         "feature": "VMA10",
