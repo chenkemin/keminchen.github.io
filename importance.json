@@ -9,7 +9,7 @@
     },
     {
         "feature": "KSFT",
-        "importance": 65049.09860920907
+        "importance": 65069.784941911705
     },
     {
         "feature": "HIGH0",
@@ -17,7 +17,7 @@
     },
     {
         "feature": "MIN60",
-        "importance": 61289.85515006383
+        "importance": 61351.764151732124
     },
     {
         "feature": "KLOW",
@@ -49,7 +49,7 @@
     },
     {
         "feature": "RSV60",
-        "importance": 24102.19210243225
+        "importance": 24040.283100763954
     },
     {
         "feature": "QTLD10",
@@ -64,12 +64,12 @@
         "importance": 21334.436922709145
     },
     {
-        "feature": "STD10",
-        "importance": 20085.3602763017
+        "feature": "MIN30",
+        "importance": 20101.1814169089
     },
     {
-        "feature": "MIN30",
-        "importance": 20079.989830096565
+        "feature": "STD10",
+        "importance": 20080.408442894615
     },
     {
         "feature": "STD60",
@@ -101,7 +101,7 @@
     },
     {
         "feature": "LOW0",
-        "importance": 18925.857618649803
+        "importance": 18905.171285947166
     },
     {
         "feature": "VMA10",
@@ -185,7 +185,7 @@
     },
     {
         "feature": "RSQR10",
-        "importance": 13061.04978775978
+        "importance": 13066.001621166866
     },
     {
         "feature": "KMID",
