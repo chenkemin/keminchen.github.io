@@ -1,10 +1,8 @@
 {
-    "record_id": "c32cddcc88bf4a65bcc6aa3e44c237dc",
-    "build_time": "2026-03-12 21:02",
+    "record_id": "bc761edd7aef48899307c789cac41637",
     "alpha": "0.6810",
-    "risk": "0.5598",
     "win_rate": "89.29%",
     "mdd": "-63.48%",
     "interval": "2025-07-01 -> 2025-12-11",
-    "node": "DELL 3020"
+    "node": "DELL T5820"
 }
