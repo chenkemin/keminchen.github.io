@@ -5,422 +5,243 @@
         <meta charset="UTF-8">
         <style>
             :root { --primary: #58a6ff; --success: #3fb950; --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; }
-            body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 15px; line-height: 1.6; }
-            .container { max-width: 1250px; margin: auto; }
-            .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-            .grid { display: grid; grid-template-columns: 280px 1fr 280px; gap: 20px; }
-            #list { max-height: 500px; overflow-y: auto; padding-right: 5px; }
-            .list-item { padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
-            .list-item:hover { border-color: var(--primary); }
-            .list-item.active { border-color: var(--primary); background: rgba(88, 166, 255, 0.1); }
-            .chart-box { height: 500px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; position: relative; }
-            .risk-msg { font-size: 12px; margin-top: 10px; padding: 12px; border-radius: 6px; border-left: 4px solid var(--primary); background: #0d1117; }
-            table { width: 100%; font-size: 11px; border-collapse: collapse; }
-            td, th { padding: 6px 2px; border-bottom: 1px solid #21262d; }
+            body { background: var(--bg); color: var(--text); font-family: -apple-system, sans-serif; padding: 15px; margin:0; }
+            .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+            .grid { display: grid; grid-template-columns: 310px 1fr; gap: 20px; }
+            #list { max-height: calc(100vh - 180px); overflow-y: auto; padding-right:5px; }
+            .list-item { padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; background: #1c2128; }
+            .list-item:hover { border-color: var(--primary); background: #2d333b; }
+            .list-item.active { border-color: var(--primary); background: rgba(88, 166, 255, 0.1) !important; }
+            .chart-box { height: 620px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; position: relative; background: #000; }
+            @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+            ::-webkit-scrollbar { width: 5px; }
+            ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="card">
-                <h2 style="color:var(--primary); margin:0;">🔥 AI 动能决策矩阵 (暴力突破版)</h2>
-                <div style="font-size:11px; color:#8b949e; margin-bottom:15px;">Node: DELL T5820 | Build: 2026-03-14 20:43:53</div>
-                <div class="grid">
-                    <div id="list">
-                        
-                        <div class="list-item" onclick="select_stock(0)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ002445 <span style="color:#8b949e; font-weight:normal;">中南文化</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">4.49</span> | 
-                                涨跌: <span style="color:var(--success)">10.05%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(1)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ000677 <span style="color:#8b949e; font-weight:normal;">恒天海龙</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">5.02</span> | 
-                                涨跌: <span style="color:var(--success)">10.09%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(2)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH603843 <span style="color:#8b949e; font-weight:normal;">*ST正平</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">6.7</span> | 
-                                涨跌: <span style="color:var(--success)">5.02%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(3)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH600121 <span style="color:#8b949e; font-weight:normal;">郑州煤电</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">5.65</span> | 
-                                涨跌: <span style="color:var(--success)">9.92%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(4)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ000890 <span style="color:#8b949e; font-weight:normal;">法尔胜</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">11.09</span> | 
-                                涨跌: <span style="color:var(--success)">10.02%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(5)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH603929 <span style="color:#8b949e; font-weight:normal;">亚翔集成</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">140.83</span> | 
-                                涨跌: <span style="color:var(--success)">10.0%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(6)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH600691 <span style="color:#8b949e; font-weight:normal;">潞化科技</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">4.43</span> | 
-                                涨跌: <span style="color:var(--success)">9.93%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(7)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ002470 <span style="color:#8b949e; font-weight:normal;">金正大</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">3.22</span> | 
-                                涨跌: <span style="color:var(--success)">9.9%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(8)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ300185 <span style="color:#8b949e; font-weight:normal;">通裕重工</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">4.21</span> | 
-                                涨跌: <span style="color:var(--success)">19.94%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(9)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH600599 <span style="color:#8b949e; font-weight:normal;">*ST熊猫</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">5.09</span> | 
-                                涨跌: <span style="color:var(--success)">4.95%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(10)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ002637 <span style="color:#8b949e; font-weight:normal;">赞宇科技</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">15.87</span> | 
-                                涨跌: <span style="color:var(--success)">9.98%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(11)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH600683 <span style="color:#8b949e; font-weight:normal;">京投发展</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">8.76</span> | 
-                                涨跌: <span style="color:var(--success)">10.05%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(12)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ002950 <span style="color:#8b949e; font-weight:normal;">奥美医疗</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">11.3</span> | 
-                                涨跌: <span style="color:var(--success)">10.03%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(13)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ002931 <span style="color:#8b949e; font-weight:normal;">锋龙股份</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">81.58</span> | 
-                                涨跌: <span style="color:var(--success)">10.01%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(14)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ002109 <span style="color:#8b949e; font-weight:normal;">兴化股份</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">5.18</span> | 
-                                涨跌: <span style="color:var(--success)">9.98%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(15)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH603659 <span style="color:#8b949e; font-weight:normal;">璞泰来</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">32.41</span> | 
-                                涨跌: <span style="color:var(--success)">10.01%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(16)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ000010 <span style="color:#8b949e; font-weight:normal;">美丽生态</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">4.53</span> | 
-                                涨跌: <span style="color:var(--success)">9.95%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(17)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH603557 <span style="color:#8b949e; font-weight:normal;">ST起步</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">4.01</span> | 
-                                涨跌: <span style="color:var(--success)">4.97%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(18)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ000669 <span style="color:#8b949e; font-weight:normal;">ST金鸿</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">4.86</span> | 
-                                涨跌: <span style="color:var(--success)">4.97%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(19)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ001366 <span style="color:#8b949e; font-weight:normal;">播恩集团</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">15.76</span> | 
-                                涨跌: <span style="color:var(--success)">9.98%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(20)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH603607 <span style="color:#8b949e; font-weight:normal;">京华激光</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">24.55</span> | 
-                                涨跌: <span style="color:var(--success)">9.99%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(21)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ000004 <span style="color:#8b949e; font-weight:normal;">*ST国华</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">6.16</span> | 
-                                涨跌: <span style="color:var(--success)">4.94%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(22)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ002669 <span style="color:#8b949e; font-weight:normal;">康达新材</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">15.35</span> | 
-                                涨跌: <span style="color:var(--success)">10.04%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(23)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH600234 <span style="color:#8b949e; font-weight:normal;">科新发展</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">14.92</span> | 
-                                涨跌: <span style="color:var(--success)">10.03%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(24)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH605222 <span style="color:#8b949e; font-weight:normal;">起帆电缆</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">23.06</span> | 
-                                涨跌: <span style="color:var(--success)">10.02%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(25)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH600408 <span style="color:#8b949e; font-weight:normal;">安泰集团</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">4.13</span> | 
-                                涨跌: <span style="color:var(--success)">10.13%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(26)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ002165 <span style="color:#8b949e; font-weight:normal;">红 宝 丽</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">12.76</span> | 
-                                涨跌: <span style="color:var(--success)">10.0%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(27)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH600232 <span style="color:#8b949e; font-weight:normal;">金鹰股份</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">8.78</span> | 
-                                涨跌: <span style="color:var(--success)">10.03%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(28)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SH600756 <span style="color:#8b949e; font-weight:normal;">浪潮软件</span></div>
-                                <div style="font-weight:bold; color:#8b949e">50.0%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">17.63</span> | 
-                                涨跌: <span style="color:var(--success)">9.98%</span>
-                                <span style="border:1px solid #8b949e; color:#8b949e; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🚫 涨停拦截</span>
-                            </div>
-                        </div>
-                        
-                        <div class="list-item" onclick="select_stock(29)">
-                            <div style="display:flex; justify-content:space-between;">
-                                <div style="font-weight:bold;">SZ001965 <span style="color:#8b949e; font-weight:normal;">招商公路</span></div>
-                                <div style="font-weight:bold; color:#ff9900">56.9%</div>
-                            </div>
-                            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
-                                现价: <span style="color:var(--text); font-weight:bold;">10.1</span> | 
-                                涨跌: <span style="color:#ff4d4d">-1.08%</span>
-                                <span style="border:1px solid #ff9900; color:#ff9900; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">📈 顺势跟进</span>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="chart-box">
-                        <iframe id="rf" width="100%" height="100%" frameborder="0"></iframe>
-                        <div id="warning-box" class="risk-msg" style="position:absolute; bottom:15px; left:15px; right:15px;"></div>
-                    </div>
-                    <div style="border:1px solid var(--border); border-radius:8px; padding:12px; background:#0d1117;">
-                        <h3 style="margin:0 0 10px 0; font-size:14px; color:var(--primary); text-align:center;">🎯 HIL 持仓审计</h3>
-                        <div style="text-align:center; padding:10px; background:rgba(88,166,255,0.05); border-radius:8px; margin-bottom:10px;">
-                            <div style="font-size:10px; color:#8b949e;">滚动胜率 (N=50)</div>
-                            <div style="font-size:24px; font-weight:bold; color:#ff4d4d">33.3%</div>
-                        </div>
-                        <div style="max-height: 400px; overflow-y: auto;">
-                            <table><tbody><tr><td>2026/3/6</td><td>SZ301680 <span style='color:#8b949e;font-size:10px;'>固德电材</span></td><td style='color:#ff4d4d; text-align:right;'>-7.27%</td></tr><tr><td>2026/3/6</td><td>SZ000718 <span style='color:#8b949e;font-size:10px;'>苏宁环球</span></td><td style='color:#ff4d4d; text-align:right;'>-0.44%</td></tr><tr><td>2026/3/6</td><td>SZ000955 <span style='color:#8b949e;font-size:10px;'>欣龙控股</span></td><td style='color:#ff4d4d; text-align:right;'>-4.53%</td></tr><tr><td>2026/3/6</td><td>SH600615 <span style='color:#8b949e;font-size:10px;'>鑫源智造</span></td><td style='color:var(--success); text-align:right;'>2.43%</td></tr><tr><td>2026/3/6</td><td>SZ000631 <span style='color:#8b949e;font-size:10px;'>顺发恒能</span></td><td style='color:var(--success); text-align:right;'>1.80%</td></tr><tr><td>2026/3/6</td><td>SZ000719 <span style='color:#8b949e;font-size:10px;'>中原传媒</span></td><td style='color:#ff4d4d; text-align:right;'>-0.54%</td></tr><tr><td>2026-03-06</td><td>SZ000552 <span style='color:#8b949e;font-size:10px;'>甘肃能化</span></td><td style='color:var(--success); text-align:right;'>1.43%</td></tr><tr><td>2026-03-06</td><td>SH600844 <span style='color:#8b949e;font-size:10px;'>金煤科技</span></td><td style='color:var(--success); text-align:right;'>15.51%</td></tr><tr><td>2026-03-06</td><td>SZ301205 <span style='color:#8b949e;font-size:10px;'>联特科技</span></td><td style='color:#ff4d4d; text-align:right;'>-10.22%</td></tr><tr><td>2026-03-06</td><td>SZ301265 <span style='color:#8b949e;font-size:10px;'>华新环保</span></td><td style='color:#ff4d4d; text-align:right;'>-1.42%</td></tr><tr><td>2026-03-06</td><td>SZ000968 <span style='color:#8b949e;font-size:10px;'>蓝焰控股</span></td><td style='color:#ff4d4d; text-align:right;'>-9.39%</td></tr><tr><td>2026-03-09</td><td>SZ000973 <span style='color:#8b949e;font-size:10px;'>佛塑科技</span></td><td style='color:var(--success); text-align:right;'>18.07%</td></tr><tr><td>2026-02-24</td><td>SZ000973 <span style='color:#8b949e;font-size:10px;'>佛塑科技</span></td><td style='color:var(--success); text-align:right;'>7.67%</td></tr><tr><td>2026-03-13</td><td>SZ002445 <span style='color:#8b949e;font-size:10px;'>中南文化</span></td><td style='color:#8b949e; text-align:right;'>0.00%</td></tr><tr><td>2026-03-13</td><td>SZ000677 <span style='color:#8b949e;font-size:10px;'>恒天海龙</span></td><td style='color:#8b949e; text-align:right;'>0.00%</td></tr><tr><td>2026-03-13</td><td>SH600121 <span style='color:#8b949e;font-size:10px;'>郑州煤电</span></td><td style='color:#8b949e; text-align:right;'>0.00%</td></tr><tr><td>2026-03-13</td><td>SH603843 <span style='color:#8b949e;font-size:10px;'>*ST正平</span></td><td style='color:#8b949e; text-align:right;'>0.00%</td></tr><tr><td>2026-03-13</td><td>SZ000890 <span style='color:#8b949e;font-size:10px;'>法尔胜</span></td><td style='color:#8b949e; text-align:right;'>0.00%</td></tr></tbody></table>
-                        </div>
-                    </div>
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h2 style="color:var(--primary); margin:0; letter-spacing: 1px;">🚀 HIL COMMAND CENTER</h2>
+                <div style="font-size:11px; color:#8b949e; text-align:right;">DATA_REF: 2026-03-13 | SYNC_TIME: 2026-03-15 11:27:21</div>
+            </div>
+            
+            
+        <div style="background: linear-gradient(90deg, #842029 0%, #dc3545 50%, #842029 100%); 
+                    color: white; padding: 12px; border-radius: 8px; margin-bottom: 20px; 
+                    border: 1px solid #f5c2c7; text-align: center; font-size: 14px; 
+                    animation: pulse 2s infinite; box-shadow: 0 0 15px rgba(220, 53, 69, 0.4);">
+            <b>☢️ DEFCON 1: 全局避险熔断激活</b> | 沪深300今日暴跌 -0.39% (4669.14) | 系统已物理锁定买入流
+        </div>
+        
+
+            <div class="grid">
+                <div id="list"><div style="color:var(--primary); font-size:12px; margin-bottom:10px; border-bottom:1px solid #30363d; padding-bottom:5px;">🛡️ 核心持仓 (Active)</div>
+        <div class="list-item" onclick="select_stock(0)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ001965 <span style="color:#8b949e; font-size:10px;">招商公路</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.9%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 10.1 | 涨跌: <span style="color:#ff4d4d">-1.08%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(1)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ002945 <span style="color:#8b949e; font-size:10px;">华林证券</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.9%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 16.29 | 涨跌: <span style="color:#ff4d4d">-1.93%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(2)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ002163 <span style="color:#8b949e; font-size:10px;">海南发展</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.7%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 13.6 | 涨跌: <span style="color:#ff4d4d">-2.23%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(3)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ001230 <span style="color:#8b949e; font-size:10px;">劲旅环境</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.5%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 24.86 | 涨跌: <span style="color:#ff4d4d">-1.7%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(4)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SH601890 <span style="color:#8b949e; font-size:10px;">亚星锚链</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.5%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 11.41 | 涨跌: <span style="color:#ff4d4d">-1.98%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(5)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ002299 <span style="color:#8b949e; font-size:10px;">圣农发展</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.5%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 18.51 | 涨跌: <span style="color:#ff4d4d">-2.68%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(6)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ301025 <span style="color:#8b949e; font-size:10px;">读客文化</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.4%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 11.25 | 涨跌: <span style="color:#ff4d4d">-2.68%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(7)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ300253 <span style="color:#8b949e; font-size:10px;">卫宁健康</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.3%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 9.21 | 涨跌: <span style="color:#ff4d4d">-2.95%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(8)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SH603598 <span style="color:#8b949e; font-size:10px;">引力传媒</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.3%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 19.66 | 涨跌: <span style="color:#ff4d4d">-2.58%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(9)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SH600501 <span style="color:#8b949e; font-size:10px;">航天晨光</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.3%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 24.2 | 涨跌: <span style="color:#ff4d4d">-3.28%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(10)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ159650 <span style="color:#8b949e; font-size:10px;">国开债ETF博时</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.3%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 107.729 | 涨跌: <span style="color:var(--success)">0.02%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(11)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SH603103 <span style="color:#8b949e; font-size:10px;">横店影视</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.2%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 23.45 | 涨跌: <span style="color:#ff4d4d">-2.62%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(12)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SH600916 <span style="color:#8b949e; font-size:10px;">中国黄金</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.2%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 9.91 | 涨跌: <span style="color:#ff4d4d">-2.46%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(13)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ301303 <span style="color:#8b949e; font-size:10px;">真兰仪表</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.2%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 16.25 | 涨跌: <span style="color:#ff4d4d">-2.05%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(14)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ002296 <span style="color:#8b949e; font-size:10px;">辉煌科技</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.2%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 13.02 | 涨跌: <span style="color:#ff4d4d">-3.41%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(15)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SH688543 <span style="color:#8b949e; font-size:10px;">国科军工</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.1%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 67.68 | 涨跌: <span style="color:#ff4d4d">-2.51%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        
+        <div class="list-item" onclick="select_stock(16)" style="border-left: 4px solid var(--primary); background: rgba(88, 166, 255, 0.03);">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="font-weight:bold;">SZ002400 <span style="color:#8b949e; font-size:10px;">省广集团</span></div>
+                <div style="font-weight:bold; color:#58a6ff">56.1%</div>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:8px;">
+                现价: 9.05 | 涨跌: <span style="color:#ff4d4d">-2.69%</span>
+                <span style="border:1px solid #58a6ff; color:#58a6ff; float:right; font-size:9px; padding:1px 4px; border-radius:4px;">🛡️ 顺势持有</span>
+            </div>
+        </div>
+        </div>
+                <div class="chart-box">
+                    <iframe id="rf" width="100%" height="100%" frameborder="0"></iframe>
+                    <div id="fb" style="position:absolute; bottom:20px; right:20px; width:280px; background:rgba(13,17,23,0.96); padding:15px; border:1px solid var(--border); border-radius:10px; font-size:11px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);"></div>
                 </div>
             </div>
-            <div class="card"><h3 style="margin-top:0;">🧠 Alpha158 引擎全局量价特征法则</h3><div id="fb"></div></div>
         </div>
         <script>
-            const sd = [{"code": "SZ002445", "name": "\u4e2d\u5357\u6587\u5316", "price": 4.49, "tv": "SZSE:002445", "score": 1.1407, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.05}, {"code": "SZ000677", "name": "\u6052\u5929\u6d77\u9f99", "price": 5.02, "tv": "SZSE:000677", "score": 1.0113, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.09}, {"code": "SH603843", "name": "*ST\u6b63\u5e73", "price": 6.7, "tv": "SSE:603843", "score": 0.9736, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (ST 5%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 5.02}, {"code": "SH600121", "name": "\u90d1\u5dde\u7164\u7535", "price": 5.65, "tv": "SSE:600121", "score": 0.9556, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 9.92}, {"code": "SZ000890", "name": "\u6cd5\u5c14\u80dc", "price": 11.09, "tv": "SZSE:000890", "score": 0.6489, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.02}, {"code": "SH603929", "name": "\u4e9a\u7fd4\u96c6\u6210", "price": 140.83, "tv": "SSE:603929", "score": 0.5232, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.0}, {"code": "SH600691", "name": "\u6f5e\u5316\u79d1\u6280", "price": 4.43, "tv": "SSE:600691", "score": 0.5193, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 9.93}, {"code": "SZ002470", "name": "\u91d1\u6b63\u5927", "price": 3.22, "tv": "SZSE:002470", "score": 0.5002, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 9.9}, {"code": "SZ300185", "name": "\u901a\u88d5\u91cd\u5de5", "price": 4.21, "tv": "SZSE:300185", "score": 0.487, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 19.94}, {"code": "SH600599", "name": "*ST\u718a\u732b", "price": 5.09, "tv": "SSE:600599", "score": 0.4668, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (ST 5%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 4.95}, {"code": "SZ002637", "name": "\u8d5e\u5b87\u79d1\u6280", "price": 15.87, "tv": "SZSE:002637", "score": 0.4324, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 9.98}, {"code": "SH600683", "name": "\u4eac\u6295\u53d1\u5c55", "price": 8.76, "tv": "SSE:600683", "score": 0.3824, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.05}, {"code": "SZ002950", "name": "\u5965\u7f8e\u533b\u7597", "price": 11.3, "tv": "SZSE:002950", "score": 0.3783, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.03}, {"code": "SZ002931", "name": "\u950b\u9f99\u80a1\u4efd", "price": 81.58, "tv": "SZSE:002931", "score": 0.3558, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.01}, {"code": "SZ002109", "name": "\u5174\u5316\u80a1\u4efd", "price": 5.18, "tv": "SZSE:002109", "score": 0.3121, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 9.98}, {"code": "SH603659", "name": "\u749e\u6cf0\u6765", "price": 32.41, "tv": "SSE:603659", "score": 0.2992, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.01}, {"code": "SZ000010", "name": "\u7f8e\u4e3d\u751f\u6001", "price": 4.53, "tv": "SZSE:000010", "score": 0.2878, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 9.95}, {"code": "SH603557", "name": "ST\u8d77\u6b65", "price": 4.01, "tv": "SSE:603557", "score": 0.2836, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (ST 5%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 4.97}, {"code": "SZ000669", "name": "ST\u91d1\u9e3f", "price": 4.86, "tv": "SZSE:000669", "score": 0.2819, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (ST 5%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 4.97}, {"code": "SZ001366", "name": "\u64ad\u6069\u96c6\u56e2", "price": 15.76, "tv": "SZSE:001366", "score": 0.276, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 9.98}, {"code": "SH603607", "name": "\u4eac\u534e\u6fc0\u5149", "price": 24.55, "tv": "SSE:603607", "score": 0.2699, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 9.99}, {"code": "SZ000004", "name": "*ST\u56fd\u534e", "price": 6.16, "tv": "SZSE:000004", "score": 0.2682, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (ST 5%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 4.94}, {"code": "SZ002669", "name": "\u5eb7\u8fbe\u65b0\u6750", "price": 15.35, "tv": "SZSE:002669", "score": 0.2638, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.04}, {"code": "SH600234", "name": "\u79d1\u65b0\u53d1\u5c55", "price": 14.92, "tv": "SSE:600234", "score": 0.2628, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.03}, {"code": "SH605222", "name": "\u8d77\u5e06\u7535\u7f06", "price": 23.06, "tv": "SSE:605222", "score": 0.2591, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.02}, {"code": "SH600408", "name": "\u5b89\u6cf0\u96c6\u56e2", "price": 4.13, "tv": "SSE:600408", "score": 0.2557, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.13}, {"code": "SZ002165", "name": "\u7ea2 \u5b9d \u4e3d", "price": 12.76, "tv": "SZSE:002165", "score": 0.2407, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.0}, {"code": "SH600232", "name": "\u91d1\u9e70\u80a1\u4efd", "price": 8.78, "tv": "SSE:600232", "score": 0.2294, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 10.03}, {"code": "SH600756", "name": "\u6d6a\u6f6e\u8f6f\u4ef6", "price": 17.63, "tv": "SSE:600756", "score": 0.2287, "win_rate": 50.0, "tag": "\ud83d\udeab \u6da8\u505c\u62e6\u622a", "color": "#8b949e", "msg": "\u8be5\u80a1\u5df2\u5c01\u677f (10%), \u81ea\u52a8\u62e6\u622a\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": 9.98}, {"code": "SZ001965", "name": "\u62db\u5546\u516c\u8def", "price": 10.1, "tv": "SZSE:001965", "score": 0.2253, "win_rate": 56.9, "tag": "\ud83d\udcc8 \u987a\u52bf\u8ddf\u8fdb", "color": "#ff9900", "msg": "\u91cf\u4ef7\u52a8\u80fd\u5065\u5eb7\u3002", "factors": [{"name": "KLEN", "pct": 100.0, "val": 347262}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185539}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101198}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69788}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54862}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.8, "val": 51436}], "today_pct": -1.08}];
+            const sd = [{"code": "SZ001965", "rank": 30, "info": {"price": 10.1, "pct": -1.08, "name": "\u62db\u5546\u516c\u8def", "high": 10.25, "prev": 10.21}, "wr": 56.913301201875335, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:001965"}, {"code": "SZ002945", "rank": 33, "info": {"price": 16.29, "pct": -1.93, "name": "\u534e\u6797\u8bc1\u5238", "high": 16.61, "prev": 16.61}, "wr": 56.851099022241726, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:002945"}, {"code": "SZ002163", "rank": 35, "info": {"price": 13.6, "pct": -2.23, "name": "\u6d77\u5357\u53d1\u5c55", "high": 13.98, "prev": 13.91}, "wr": 56.690952922178084, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:002163"}, {"code": "SZ001230", "rank": 36, "info": {"price": 24.86, "pct": -1.7, "name": "\u52b2\u65c5\u73af\u5883", "high": 25.69, "prev": 25.29}, "wr": 56.53520249089828, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:001230"}, {"code": "SH601890", "rank": 37, "info": {"price": 11.41, "pct": -1.98, "name": "\u4e9a\u661f\u951a\u94fe", "high": 11.68, "prev": 11.64}, "wr": 56.51632353075567, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SSE:601890"}, {"code": "SZ002299", "rank": 38, "info": {"price": 18.51, "pct": -2.68, "name": "\u5723\u519c\u53d1\u5c55", "high": 19.1, "prev": 19.02}, "wr": 56.48993622743197, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:002299"}, {"code": "SZ301025", "rank": 39, "info": {"price": 11.25, "pct": -2.68, "name": "\u8bfb\u5ba2\u6587\u5316", "high": 11.57, "prev": 11.56}, "wr": 56.41077350676061, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:301025"}, {"code": "SZ300253", "rank": 40, "info": {"price": 9.21, "pct": -2.95, "name": "\u536b\u5b81\u5065\u5eb7", "high": 9.53, "prev": 9.49}, "wr": 56.33633722156075, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:300253"}, {"code": "SH603598", "rank": 41, "info": {"price": 19.66, "pct": -2.58, "name": "\u5f15\u529b\u4f20\u5a92", "high": 20.18, "prev": 20.18}, "wr": 56.290166375229106, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SSE:603598"}, {"code": "SH600501", "rank": 42, "info": {"price": 24.2, "pct": -3.28, "name": "\u822a\u5929\u6668\u5149", "high": 24.98, "prev": 25.02}, "wr": 56.28111717253277, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SSE:600501"}, {"code": "SZ159650", "rank": 43, "info": {"price": 107.729, "pct": 0.02, "name": "\u56fd\u5f00\u503aETF\u535a\u65f6", "high": 107.729, "prev": 107.703}, "wr": 56.27391999491432, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:159650"}, {"code": "SH603103", "rank": 44, "info": {"price": 23.45, "pct": -2.62, "name": "\u6a2a\u5e97\u5f71\u89c6", "high": 24.1, "prev": 24.08}, "wr": 56.235487442068475, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SSE:603103"}, {"code": "SH600916", "rank": 45, "info": {"price": 9.91, "pct": -2.46, "name": "\u4e2d\u56fd\u9ec4\u91d1", "high": 10.17, "prev": 10.16}, "wr": 56.23191270093178, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SSE:600916"}, {"code": "SZ301303", "rank": 46, "info": {"price": 16.25, "pct": -2.05, "name": "\u771f\u5170\u4eea\u8868", "high": 16.58, "prev": 16.59}, "wr": 56.21213624105857, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:301303"}, {"code": "SZ002296", "rank": 47, "info": {"price": 13.02, "pct": -3.41, "name": "\u8f89\u714c\u79d1\u6280", "high": 13.47, "prev": 13.48}, "wr": 56.17511431220697, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:002296"}, {"code": "SH688543", "rank": 49, "info": {"price": 67.68, "pct": -2.51, "name": "\u56fd\u79d1\u519b\u5de5", "high": 69.8, "prev": 69.42}, "wr": 56.14166712455227, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SSE:688543"}, {"code": "SZ002400", "rank": 50, "info": {"price": 9.05, "pct": -2.69, "name": "\u7701\u5e7f\u96c6\u56e2", "high": 9.28, "prev": 9.3}, "wr": 56.12125704017598, "tag": "\ud83d\udee1\ufe0f \u987a\u52bf\u6301\u6709", "clr": "#58a6ff", "msg": "\u91cf\u4ef7\u52a8\u80fd\u4fdd\u6301\u826f\u597d\u3002", "is_held": true, "factors": [{"name": "KLEN", "pct": 100.0, "val": 347280}, {"name": "VMA60", "pct": 58.2, "val": 201997}, {"name": "LOW0", "pct": 53.4, "val": 185521}, {"name": "QTLD5", "pct": 48.9, "val": 169760}, {"name": "KLOW", "pct": 39.4, "val": 136795}, {"name": "QTLU5", "pct": 37.9, "val": 131716}, {"name": "HIGH0", "pct": 29.1, "val": 101067}, {"name": "RESI5", "pct": 28.7, "val": 99551}, {"name": "RESI10", "pct": 20.8, "val": 72384}, {"name": "KSFT2", "pct": 20.1, "val": 69919}, {"name": "KUP", "pct": 16.7, "val": 57899}, {"name": "IMIN60", "pct": 15.8, "val": 54886}, {"name": "QTLD60", "pct": 15.8, "val": 54847}, {"name": "MIN5", "pct": 15.8, "val": 54737}, {"name": "MAX5", "pct": 14.7, "val": 51114}], "tv": "SZSE:002400"}];
             function select_stock(idx) {
                 const s = sd[idx];
                 document.getElementById('rf').src = "https://s.tradingview.com/widgetembed/?symbol="+s.tv+"&interval=D&theme=dark&locale=zh_CN";
-                document.getElementById('warning-box').innerHTML = "🛡️ <b>策略诊断:</b> " + s.msg;
-                document.getElementById('warning-box').style.borderColor = s.color;
-                let html = "";
+                let html = "<div style='color:var(--primary); font-weight:bold; margin-bottom:10px;'>🧠 Alpha158 核心权重</div>";
                 for(let f of s.factors) {
-                    html += '<div style="margin-bottom:8px;"><div style="font-size:12px; display:flex; justify-content:space-between;"><span>' + f.name + '</span><span>' + f.val + '</span></div><div style="background:#21262d; height:8px; border-radius:4px; margin-top:4px;"><div style="background:var(--primary); height:100%; width:' + f.pct + '%"></div></div></div>';
+                    html += '<div style="margin-bottom:8px;">' + f.name + ' <div style="background:#21262d; height:4px; border-radius:2px; margin-top:3px;"><div style="background:var(--primary); height:100%; width:' + f.pct + '%"></div></div></div>';
                 }
                 document.getElementById('fb').innerHTML = html;
                 document.querySelectorAll('.list-item').forEach((el, i) => i === idx ? el.classList.add('active') : el.classList.remove('active'));
             }
-            select_stock(0);
+            if(sd.length > 0) select_stock(0);
         </script>
     </body>
     </html>
