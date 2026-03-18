@@ -1,7 +1,7 @@
 [
     {
         "feature": "KLEN",
-        "importance": 343690.5530050596
+        "importance": 343681.50590499246
     },
     {
         "feature": "VMA60",
@@ -9,7 +9,7 @@
     },
     {
         "feature": "LOW0",
-        "importance": 185283.4130092462
+        "importance": 185292.46010931334
     },
     {
         "feature": "QTLD5",
@@ -17,7 +17,7 @@
     },
     {
         "feature": "KLOW",
-        "importance": 134534.46897888184
+        "importance": 134526.9226620992
     },
     {
         "feature": "QTLU5",
@@ -25,7 +25,7 @@
     },
     {
         "feature": "HIGH0",
-        "importance": 99642.02485998471
+        "importance": 99608.97054378192
     },
     {
         "feature": "RESI5",
@@ -37,7 +37,7 @@
     },
     {
         "feature": "KSFT2",
-        "importance": 60013.89026912053
+        "importance": 60046.944585323334
     },
     {
         "feature": "KUP",
@@ -53,11 +53,11 @@
     },
     {
         "feature": "MAX5",
-        "importance": 52362.40015951792
+        "importance": 52587.494827588394
     },
     {
         "feature": "IMIN60",
-        "importance": 48596.92061368624
+        "importance": 48620.18961342176
     },
     {
         "feature": "RSQR10",
@@ -81,7 +81,7 @@
     },
     {
         "feature": "KMID",
-        "importance": 39274.4273592631
+        "importance": 39233.5571937561
     },
     {
         "feature": "VSTD60",
@@ -125,7 +125,7 @@
     },
     {
         "feature": "OPEN0",
-        "importance": 28790.41123533249
+        "importance": 28831.28140083949
     },
     {
         "feature": "RSQR5",
@@ -156,12 +156,12 @@
         "importance": 24398.34163204829
     },
     {
-        "feature": "RSV5",
-        "importance": 24307.308311303455
-    },
-    {
         "feature": "KMID2",
         "importance": 24117.038286368053
+    },
+    {
+        "feature": "RSV5",
+        "importance": 24082.21364323298
     },
     {
         "feature": "MIN10",
@@ -177,7 +177,7 @@
     },
     {
         "feature": "VSUMP60",
-        "importance": 19612.94505405426
+        "importance": 19630.82710425059
     },
     {
         "feature": "QTLU60",
