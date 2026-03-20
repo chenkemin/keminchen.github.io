@@ -9,7 +9,7 @@
     },
     {
         "feature": "KLOW",
-        "importance": 129871.26610589027
+        "importance": 129864.94698945682
     },
     {
         "feature": "QTLD5",
@@ -45,7 +45,7 @@
     },
     {
         "feature": "MIN60",
-        "importance": 47732.17031637827
+        "importance": 47780.6814807256
     },
     {
         "feature": "IMIN60",
@@ -97,7 +97,7 @@
     },
     {
         "feature": "MAX5",
-        "importance": 37582.880826711655
+        "importance": 37539.33702413241
     },
     {
         "feature": "MA20",
@@ -157,7 +157,7 @@
     },
     {
         "feature": "RSV5",
-        "importance": 25429.171450455986
+        "importance": 25472.71525303523
     },
     {
         "feature": "VMA5",
@@ -189,7 +189,7 @@
     },
     {
         "feature": "RSV60",
-        "importance": 24092.21215081215
+        "importance": 24043.700986464817
     },
     {
         "feature": "ROC10",
