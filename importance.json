@@ -9,7 +9,7 @@
     },
     {
         "feature": "KLOW",
-        "importance": 129863.13688937823
+        "importance": 129880.66618911426
     },
     {
         "feature": "QTLD5",
@@ -49,7 +49,7 @@
     },
     {
         "feature": "IMIN60",
-        "importance": 46209.03156256676
+        "importance": 46193.519078969955
     },
     {
         "feature": "QTLD60",
@@ -92,12 +92,12 @@
         "importance": 38020.69644371668
     },
     {
-        "feature": "VSUMN60",
-        "importance": 37620.08814549446
+        "feature": "MAX5",
+        "importance": 37622.515661001205
     },
     {
-        "feature": "MAX5",
-        "importance": 37583.47816157341
+        "feature": "VSUMN60",
+        "importance": 37620.08814549446
     },
     {
         "feature": "MA20",
@@ -105,7 +105,7 @@
     },
     {
         "feature": "MAX60",
-        "importance": 36674.50900475184
+        "importance": 36683.68003797531
     },
     {
         "feature": "STD30",
@@ -113,7 +113,7 @@
     },
     {
         "feature": "KMID",
-        "importance": 34115.36546591918
+        "importance": 34130.10463217895
     },
     {
         "feature": "MA60",
@@ -125,7 +125,7 @@
     },
     {
         "feature": "OPEN0",
-        "importance": 32606.884309132896
+        "importance": 32592.14514287313
     },
     {
         "feature": "CORD30",
@@ -145,7 +145,7 @@
     },
     {
         "feature": "MIN30",
-        "importance": 29332.699826478958
+        "importance": 29342.4330265522
     },
     {
         "feature": "VSTD60",
@@ -157,7 +157,7 @@
     },
     {
         "feature": "RSV5",
-        "importance": 25428.57411559423
+        "importance": 25389.536616166435
     },
     {
         "feature": "VMA5",
@@ -189,7 +189,7 @@
     },
     {
         "feature": "RSV60",
-        "importance": 24073.102017958958
+        "importance": 24063.93098473549
     },
     {
         "feature": "ROC10",
