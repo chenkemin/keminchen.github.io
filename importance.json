@@ -9,7 +9,7 @@
     },
     {
         "feature": "KLOW",
-        "importance": 129871.26610589027
+        "importance": 129874.49468922615
     },
     {
         "feature": "QTLD5",
@@ -49,7 +49,7 @@
     },
     {
         "feature": "IMIN60",
-        "importance": 46176.49986306826
+        "importance": 46181.50362881024
     },
     {
         "feature": "QTLD60",
@@ -65,7 +65,7 @@
     },
     {
         "feature": "VSUMP60",
-        "importance": 44473.76764512062
+        "importance": 44487.50607895851
     },
     {
         "feature": "CORD5",
@@ -92,12 +92,12 @@
         "importance": 38020.69644371668
     },
     {
-        "feature": "VSUMN60",
-        "importance": 37633.82657933235
+        "feature": "MAX5",
+        "importance": 37622.515661001205
     },
     {
-        "feature": "MAX5",
-        "importance": 37627.76602753004
+        "feature": "VSUMN60",
+        "importance": 37620.08814549446
     },
     {
         "feature": "MA20",
@@ -105,7 +105,7 @@
     },
     {
         "feature": "MAX60",
-        "importance": 36646.22783867518
+        "importance": 36655.39887189865
     },
     {
         "feature": "STD30",
@@ -113,7 +113,7 @@
     },
     {
         "feature": "KMID",
-        "importance": 34071.77779908975
+        "importance": 34097.36879869302
     },
     {
         "feature": "MA60",
@@ -125,7 +125,7 @@
     },
     {
         "feature": "OPEN0",
-        "importance": 32650.471975962322
+        "importance": 32624.88097635905
     },
     {
         "feature": "CORD30",
@@ -145,7 +145,7 @@
     },
     {
         "feature": "MIN30",
-        "importance": 29332.699826478958
+        "importance": 29342.4330265522
     },
     {
         "feature": "VSTD60",
@@ -157,7 +157,7 @@
     },
     {
         "feature": "RSV5",
-        "importance": 25384.286249637607
+        "importance": 25389.536616166435
     },
     {
         "feature": "VMA5",
@@ -189,7 +189,7 @@
     },
     {
         "feature": "RSV60",
-        "importance": 24101.383184035618
+        "importance": 24092.21215081215
     },
     {
         "feature": "ROC10",
